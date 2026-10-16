@@ -13,21 +13,25 @@ class HouseService:
         self.house_repository = house_repository
 
     def create_house(self, url: Any, total_rent: Any, note: Any) -> House:
-        if any(_is_missing(value) for value in (url, total_rent, note)):
+        if any(_is_missing(value) for value in (url, total_rent)):
             raise BusinessError("必要參數未提供", 400)
         if not _is_positive_integer(total_rent):
             raise BusinessError("總租金必須為正整數", 400)
         if self.house_repository.find_by_url(url) is not None:
             raise BusinessError("網址已存在", 422)
-        return self.house_repository.save(House(url=url, total_rent=total_rent, note=note))
+        return self.house_repository.save(
+            House(url=url, total_rent=total_rent, note=_note_or_blank(note))
+        )
 
-    def update_total_rent(self, house_id: int, total_rent: Any) -> House:
+    def update_house(self, house_id: int, total_rent: Any, note: Any) -> House:
+        """一次修改總租金與備註；備註未提供或空字串即清空。網址不可編輯。"""
         house = self._get_house(house_id)
         if _is_missing(total_rent):
             raise BusinessError("必要參數未提供", 400)
         if not _is_positive_integer(total_rent):
             raise BusinessError("總租金必須為正整數", 400)
         house.total_rent = total_rent
+        house.note = _note_or_blank(note)
         return self.house_repository.save(house)
 
     def update_landlord_status(self, house_id: int, status: Any) -> House:
@@ -57,6 +61,11 @@ def _parse_status(value: Any, status_enum: type[StatusEnum]) -> StatusEnum:
     if value not in {status.value for status in status_enum}:
         raise BusinessError("狀態不合法", 400)
     return status_enum(value)
+
+
+def _note_or_blank(note: Any) -> str:
+    """備註非必填：未提供時存空字串（houses.note 維持 not null）。"""
+    return "" if note is None else str(note)
 
 
 def _is_missing(value: Any) -> bool:

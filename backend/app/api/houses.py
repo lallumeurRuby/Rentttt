@@ -149,16 +149,17 @@ def update_viewing_status(
     return {"success": True}
 
 
-class UpdateTotalRentRequest(BaseModel):
+class UpdateHouseRequest(BaseModel):
     totalRent: Any = None
+    note: Any = None
 
 
-@router.put("/houses/{house_id}/total-rent")
-def update_total_rent(
+@router.put("/houses/{house_id}")
+def update_house(
     house_id: int,
-    request: UpdateTotalRentRequest,
+    request: UpdateHouseRequest,
     db: Session = Depends(get_db),
     _member: Member = Depends(get_current_member),
 ) -> dict[str, Any]:
-    HouseService(HouseRepository(db)).update_total_rent(house_id, request.totalRent)
+    HouseService(HouseRepository(db)).update_house(house_id, request.totalRent, request.note)
     return {"success": True}
