@@ -2,8 +2,8 @@
 
 ## 審查進度
 
-- [ ] 03.1 相關規格已審查 — **簽名**: ___
-- [ ] 03.2 交付物已審查 — **簽名**: ___
+- [x] 03.1 相關規格已審查 — **簽名**: 2026-10-16 14:58
+- [x] 03.2 交付物已審查 — **簽名**: 2026-10-16 14:58
 
 ## 目的 (What)
 
@@ -46,14 +46,14 @@ carry-on Step 03.2 觸發時：
 
 | # | 交付物 | 路徑 | 狀態 |
 |---|--------|------|------|
-| 03.1 | 系統抽象 | `C:/Users/retailingdata/Desktop/ruby/Rentttt/backend/tests/features/系統抽象.md` | PENDING |
-| 03.2 | 句型模型 | `C:/Users/retailingdata/Desktop/ruby/Rentttt/backend/tests/features/{domain}/句型.md` | PENDING |
-| 03.3 | Feature Files（含 Examples） | `C:/Users/retailingdata/Desktop/ruby/Rentttt/backend/tests/features/**/*.feature` | PENDING |
+| 03.1 | 系統抽象 | `C:/Users/retailingdata/Desktop/ruby/Rentttt/backend/tests/features/系統抽象.md` | DONE |
+| 03.2 | 句型模型 | `C:/Users/retailingdata/Desktop/ruby/Rentttt/backend/tests/features/{domain}/句型.md` | DONE |
+| 03.3 | Feature Files（含 Examples） | `C:/Users/retailingdata/Desktop/ruby/Rentttt/backend/tests/features/**/*.feature` | DONE |
 
 ### 驗收點
 
-- [ ] `features/系統抽象.md` 產出並經使用者審核
-- [ ] 每個 domain 的 `features/{domain}/句型.md` 產出並經使用者審核
-- [ ] 所有 .feature 填入具體 Examples
-- [ ] 所有 .feature 移除 `@ignore` tag
-- [ ] QA 五維分析完整（每行 Example 有存在理由）
+- [x] `features/系統抽象.md` 產出並經使用者審核
+- [x] 每個 domain 的 `features/{domain}/句型.md` 產出並經使用者審核
+- [x] 所有 .feature 填入具體 Examples
+- [x] 所有 .feature 移除 `@ignore` tag
+- [x] QA 五維分析完整（每行 Example 有存在理由）

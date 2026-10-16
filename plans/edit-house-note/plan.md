@@ -14,7 +14,7 @@
 |-------|------|------------|------|
 | 01 | Requirement Analysis（需求分析 + 影響評估 + 行為設計） | — | done |
 | 02 | Entity Modeling（外部品質 — 資料） | 01 | done |
-| 03 | BDD Analysis（外部品質 — 可執行規格） | 02 | todo |
+| 03 | BDD Analysis（外部品質 — 可執行規格） | 02 | done |
 | 04 | API Contract（內部品質） | 03 | todo |
 | 05 | Backend TDD Track | 04 | todo |
 | 06 | Frontend Build Track | 04 | todo |
@@ -107,3 +107,20 @@ IMPL_IMPACT：無（僅註解變更，無 schema / migration 變動）。
 |-------|---------|-------------|------|
 | 05 | steps/house/commands/update_total_rent.py | SENTENCE_PATTERN | When 句型改為「編輯房屋 "{網址}"：」，request body 加 note |
 | 05 | HouseService.create_house | NEW behavior | 備註可不提供（存空字串） |
+
+### Phase 04 Change Summary（api.yml）
+| 操作 | 目標 | 說明 |
+|------|------|------|
+| modify（route） | `PUT /houses/{houseId}/total-rent` → `PUT /houses/{houseId}` | operationId `updateHouse`，摘要「編輯房屋」 |
+| modify（schema） | `UpdateTotalRentRequest` → `UpdateHouseRequest` | `{ totalRent (required), note (optional) }` |
+| modify（schema） | `CreateHouseRequest` | required 移除 note |
+
+## IMPL_IMPACT（Phase 04 回填）
+| Phase | 影響目標 | Impact Type | 說明 |
+|-------|---------|-------------|------|
+| 05 | api/houses.py route + HouseService.update_house | ENDPOINT_ROUTE + ENDPOINT_SCHEMA | 取代 total-rent，加入 note |
+| 05 | HouseService.create_house | ENDPOINT_SCHEMA | note 選填，未提供存 '' |
+| 05 | steps/house/commands/update_total_rent.py | ENDPOINT_ROUTE + SENTENCE_PATTERN | 新句型 + 新路徑 + note |
+| 06 | lib/api/house.ts、mocks/handlers/house.ts、EditRentDialog、houses page | ENDPOINT_ROUTE + ENDPOINT_SCHEMA | updateHouse()，備註可編輯 |
+| 06 | lib/types/house.schema.ts、AddHouseForm、MSW POST handler | ENDPOINT_SCHEMA | 備註選填 |
+| 07 | 編輯 / 新增流程 | — | Phase 05 + 06 有 Targeted Fix → 整合重驗 |

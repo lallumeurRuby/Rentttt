@@ -173,21 +173,17 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/HouseNotFound'
-
-  /houses/{houseId}/total-rent:
-    parameters:
-      - $ref: '#/components/parameters/HouseId'
     put:
       tags: [house]
-      operationId: updateHouseTotalRent
-      summary: 編輯房屋總租金
-      description: 只能修改總租金；網址與備註不可編輯。
+      operationId: updateHouse
+      summary: 編輯房屋
+      description: 一次修改總租金與備註；總租金必填，備註選填（未提供或空字串即清空備註）。網址不可編輯。
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UpdateTotalRentRequest'
+              $ref: '#/components/schemas/UpdateHouseRequest'
       responses:
         '200':
           $ref: '#/components/responses/Ok'
@@ -411,7 +407,7 @@ components:
 
     CreateHouseRequest:
       type: object
-      required: [url, totalRent, note]
+      required: [url, totalRent]
       properties:
         url:
           type: string
@@ -420,14 +416,18 @@ components:
           minimum: 1
         note:
           type: string
+          description: 選填；未提供時存為空字串
 
-    UpdateTotalRentRequest:
+    UpdateHouseRequest:
       type: object
       required: [totalRent]
       properties:
         totalRent:
           type: integer
           minimum: 1
+        note:
+          type: string
+          description: 選填；未提供或空字串即清空備註
 
     CastVoteRequest:
       type: object
