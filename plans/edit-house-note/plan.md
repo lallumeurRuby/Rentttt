@@ -85,3 +85,11 @@ Phase 01-04 的產出物是 Phase 05-07 的共同依據（Single Source of Truth
 # Execution Plan
 
 見 `C:/Users/retailingdata/Desktop/ruby/Rentttt/plans/edit-house-note/execution-plan.md`（Phase 01 Discovery 產出，CHANGE 模式）。
+
+### Phase 02 Change Summary（erm.dbml）
+| 操作 | 目標 | 說明 |
+|------|------|------|
+| modify | houses.note | 註解改為「可編輯、可留空，未填存空字串」；型別與 not null 不變 |
+| modify | houses.total_rent | 註解「唯一可編輯欄位」→「可編輯」 |
+
+IMPL_IMPACT：無（僅註解變更，無 schema / migration 變動）。

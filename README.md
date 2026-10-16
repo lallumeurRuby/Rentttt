@@ -109,7 +109,7 @@ npm run typecheck
 | ---------------- | --------------------------------------------------------------------- | ------------------------------------------------ |
 | `DATABASE_URL` | `postgresql+psycopg://postgres:postgres@localhost:5434/rentttt_dev` | 資料庫連線                                       |
 | `JWT_SECRET`   | 開發用預設值                                                          | **正式環境務必改成至少 32 字元的隨機字串** |
-| `CORS_ORIGINS` | `*`                                                                   | 逗號分隔的允許來源（正式環境填前端網址）         |
+| `CORS_ORIGINS` | `*`                                                                 | 逗號分隔的允許來源（正式環境填前端網址）         |
 
 可以寫在 `backend/.env` 裡（範本見 `backend/.env.example`，`.env` 已被 git 忽略）。
 
@@ -119,11 +119,11 @@ npm run typecheck
 瀏覽器 → Vercel（前端）→ /api/* 轉發 → Render（FastAPI）→ Supabase（PostgreSQL）
 ```
 
-| 部分   | 平台                            | 設定來源                      |
-| ------ | ------------------------------- | ----------------------------- |
-| 資料庫 | Supabase                        | Dashboard 的連線字串          |
-| 後端   | Render（Free Web Service）      | 專案根目錄的 `render.yaml`    |
-| 前端   | Vercel（Hobby）                 | Vercel Dashboard 的環境變數   |
+| 部分   | 平台                       | 設定來源                     |
+| ------ | -------------------------- | ---------------------------- |
+| 資料庫 | Supabase                   | Dashboard 的連線字串         |
+| 後端   | Render（Free Web Service） | 專案根目錄的 `render.yaml` |
+| 前端   | Vercel（Hobby）            | Vercel Dashboard 的環境變數  |
 
 ### 1. Supabase（資料庫）
 
@@ -145,13 +145,11 @@ npm run typecheck
 1. 用 GitHub 登入 Vercel → **Add New → Project** → Import 這個 repo。
 2. **Root Directory** 設成 `frontend`，框架會自動偵測為 Next.js。
 3. 設定 Environment Variables：
-
-   | 變數                       | 值                                  |
-   | -------------------------- | ----------------------------------- |
-   | `NEXT_PUBLIC_MOCK_API`     | `false`                             |
-   | `NEXT_PUBLIC_API_BASE_URL` | `/api`                              |
-   | `BACKEND_URL`              | `https://<服務名>.onrender.com`     |
-
+   | 變數                         | 值                                |
+   | ---------------------------- | --------------------------------- |
+   | `NEXT_PUBLIC_MOCK_API`     | `false`                         |
+   | `NEXT_PUBLIC_API_BASE_URL` | `/api`                          |
+   | `BACKEND_URL`              | `https://<服務名>.onrender.com` |
 4. 部署完成後，回到 Render 把 `CORS_ORIGINS` 設成 Vercel 的網址。
 
 ### 之後怎麼更新

@@ -36,8 +36,8 @@ Table members {
 Table houses {
   id              integer          [pk, increment]
   url             varchar          [unique, not null, note: '網址；建立後不可編輯；不得與目前存在的房屋完全相同']
-  total_rent      integer          [not null, note: '總租金（元），must be > 0；唯一可編輯欄位']
-  note            text             [not null, note: '備註；建立後不可編輯']
+  total_rent      integer          [not null, note: '總租金（元），must be > 0；可編輯']
+  note            text             [not null, note: '備註；可編輯、可留空，未填存空字串（維持 not null）']
   landlord_status landlord_status  [not null, default: '待聯絡', note: '可任意切換']
   viewing_status  viewing_status   [not null, default: '未開始', note: '可任意切換']
   created_at      timestamp        [not null, default: `now()`, note: '排序：總租金相同時新的在前']
