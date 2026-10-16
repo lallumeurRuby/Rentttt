@@ -2,10 +2,10 @@
 
 三人共用的找租屋紀錄平台：記錄房屋物件、依分租權重試算每人租金（標示超出預算）、匿名投票決定是否列入考慮，並追蹤房東與看房進度。
 
-| 部分 | 技術 | 位置 |
-|------|------|------|
-| 後端 | FastAPI + SQLAlchemy + Alembic + PostgreSQL | `backend/` |
-| 前端 | Next.js 14 + MSW + Zod | `frontend/` |
+| 部分 | 技術                                            | 位置                                    |
+| ---- | ----------------------------------------------- | --------------------------------------- |
+| 後端 | FastAPI + SQLAlchemy + Alembic + PostgreSQL     | `backend/`                            |
+| 前端 | Next.js 14 + MSW + Zod                          | `frontend/`                           |
 | 規格 | Activity、feature（Gherkin）、erm.dbml、api.yml | `specs/`、`backend/tests/features/` |
 
 ## 需要先安裝
@@ -16,11 +16,11 @@
 
 ## 連接埠
 
-| 服務 | 埠 | 說明 |
-|------|----|------|
+| 服務       | 埠             | 說明                             |
+| ---------- | -------------- | -------------------------------- |
 | PostgreSQL | **5434** | 本機 5432、5433 已被其他專案使用 |
-| 後端 API | 8000 | |
-| 前端 | **3100** | 3000 已被其他專案使用 |
+| 後端 API   | 8000           |                                  |
+| 前端       | **3100** | 3000 已被其他專案使用            |
 
 ---
 
@@ -42,6 +42,7 @@ npm install
 需要開三個終端機，每個指令都從專案根目錄開始。
 
 **1. 資料庫**
+
 ```bash
 cd backend
 docker compose up -d                              # 啟動 rentttt-postgres（5434）
@@ -49,17 +50,21 @@ docker compose up -d                              # 啟動 rentttt-postgres（54
 ```
 
 **2. 後端**
+
 ```bash
 cd backend
 .venv/Scripts/uvicorn.exe app.main:app --port 8000
 ```
+
 健康檢查：`curl http://localhost:8000/health` 應回傳 `{"status":"ok"}`。
 
 **3. 前端**
+
 ```bash
 cd frontend
 npm run dev -- -p 3100
 ```
+
 打開 http://localhost:3100，點選自己的名字登入。
 
 前端會把 `/api/*` 轉發（proxy）到 `BACKEND_URL`，預設是 `http://localhost:8000`。
@@ -71,9 +76,9 @@ npm run dev -- -p 3100
 - 刪掉 `frontend/.env.development.local`，或把裡面的 `NEXT_PUBLIC_MOCK_API` 改成 `true`。
 - 然後執行 `npm run dev -- -p 3100`。
 
-| 檔案 | 用途 |
-|------|------|
-| `frontend/.env.development` | 預設設定（mock 模式），會被 git 追蹤 |
+| 檔案                                | 用途                                                                   |
+| ----------------------------------- | ---------------------------------------------------------------------- |
+| `frontend/.env.development`       | 預設設定（mock 模式），會被 git 追蹤                                   |
 | `frontend/.env.development.local` | 本機覆寫（`NEXT_PUBLIC_MOCK_API=false` = 連真實後端），已被 git 忽略 |
 
 ## 測試
@@ -100,10 +105,10 @@ npm run typecheck
 
 ## 環境變數（後端）
 
-| 變數 | 預設值 | 說明 |
-|------|--------|------|
-| `DATABASE_URL` | `postgresql+psycopg://postgres:postgres@localhost:5434/rentttt_dev` | 資料庫連線 |
-| `JWT_SECRET` | 開發用預設值 | **正式環境務必改成至少 32 字元的隨機字串** |
+| 變數             | 預設值                                                                | 說明                                             |
+| ---------------- | --------------------------------------------------------------------- | ------------------------------------------------ |
+| `DATABASE_URL` | `postgresql+psycopg://postgres:postgres@localhost:5434/rentttt_dev` | 資料庫連線                                       |
+| `JWT_SECRET`   | 開發用預設值                                                          | **正式環境務必改成至少 32 字元的隨機字串** |
 
 ## 常見問題
 

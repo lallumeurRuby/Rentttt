@@ -15,6 +15,7 @@
   padding: var(--md-space-6);
   max-width: 1440px;
   width: 100%;
+  margin-inline: auto;
 }
 
 @media (max-width: 840px) {
