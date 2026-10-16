@@ -1,0 +1,509 @@
+openapi: 3.0.0
+info:
+  title: rentttt 找租屋追蹤平台 API
+  version: 1.0.0
+  description: |
+    由 backend/tests/features/**/*.feature 推導（1 feature = 1 endpoint）。
+    所有回應皆使用統一 envelope：
+      - 成功：{ "success": true, "data": ... }
+      - 失敗：{ "success": false, "error": { "violation_type": "<中文錯誤訊息>" } }
+    參數驗證錯誤（缺欄位、型別錯誤如 totalRent="abc"）一律回 400 + 對應 violation_type，
+    不使用 FastAPI 預設的 422 validation 格式。
+
+servers:
+  - url: /api
+
+tags:
+  - name: member
+  - name: house
+
+paths:
+  /members:
+    get:
+      tags: [member]
+      operationId: listMembers
+      summary: 查詢成員列表
+      description: 登入頁用，不需登入。只回傳姓名，不回傳個人最高預算與分租權重。
+      security: []
+      responses:
+        '200':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/SuccessEnvelope'
+                  - type: object
+                    required: [data]
+                    properties:
+                      data:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/MemberName'
+
+  /auth/login:
+    post:
+      tags: [member]
+      operationId: login
+      summary: 登入
+      description: 以姓名登入（精確比對，不忽略大小寫），不需密碼。回傳 JWT 供後續操作識別成員。
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/SuccessEnvelope'
+                  - type: object
+                    required: [data]
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/LoginResult'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          description: 查無此成員
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorEnvelope'
+
+  /houses:
+    get:
+      tags: [house]
+      operationId: listHouses
+      summary: 查詢房屋列表
+      description: 排序：totalRent 由低到高，相同時 createdAt 由新到舊。只回傳登入成員自己的投票（myVote），不回傳他人投票與票數。
+      responses:
+        '200':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/SuccessEnvelope'
+                  - type: object
+                    required: [data]
+                    properties:
+                      data:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/HouseListItem'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      tags: [house]
+      operationId: createHouse
+      summary: 新增房屋
+      description: 新房屋 landlordStatus 預設「待聯絡」、viewingStatus 預設「未開始」、尚無投票。
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateHouseRequest'
+      responses:
+        '201':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/SuccessEnvelope'
+                  - type: object
+                    required: [data]
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/House'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          description: 網址已存在（與目前存在的房屋完全相同）
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorEnvelope'
+
+  /houses/considered:
+    get:
+      tags: [house]
+      operationId: listConsideredHouses
+      summary: 查詢考慮列表
+      description: 只包含投票結果為「列入考慮」（≥2 票是）的房屋。排序同房屋列表。
+      responses:
+        '200':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/SuccessEnvelope'
+                  - type: object
+                    required: [data]
+                    properties:
+                      data:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/ConsideredHouse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /houses/{houseId}:
+    parameters:
+      - $ref: '#/components/parameters/HouseId'
+    delete:
+      tags: [house]
+      operationId: deleteHouse
+      summary: 刪除房屋
+      description: 永久刪除，該房屋的所有投票一併刪除。
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/HouseNotFound'
+
+  /houses/{houseId}/total-rent:
+    parameters:
+      - $ref: '#/components/parameters/HouseId'
+    put:
+      tags: [house]
+      operationId: updateHouseTotalRent
+      summary: 編輯房屋總租金
+      description: 只能修改總租金；網址與備註不可編輯。
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateTotalRentRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/HouseNotFound'
+
+  /houses/{houseId}/my-vote:
+    parameters:
+      - $ref: '#/components/parameters/HouseId'
+    put:
+      tags: [house]
+      operationId: castMyVote
+      summary: 投票是否列入考慮
+      description: 以登入成員身份投票（upsert）；每人每屋一票，再次投票取代原選擇。投票者由 token 識別，不放在 request body。
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CastVoteRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/HouseNotFound'
+
+  /houses/{houseId}/landlord-status:
+    parameters:
+      - $ref: '#/components/parameters/HouseId'
+    put:
+      tags: [house]
+      operationId: updateLandlordStatus
+      summary: 變更房東狀態
+      description: 可任意切換至清單中任一狀態（含往回改）。
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateLandlordStatusRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/HouseNotFound'
+
+  /houses/{houseId}/viewing-status:
+    parameters:
+      - $ref: '#/components/parameters/HouseId'
+    put:
+      tags: [house]
+      operationId: updateViewingStatus
+      summary: 變更看房狀態
+      description: 可任意切換至清單中任一狀態（含往回改）。
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateViewingStatusRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/Ok'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/HouseNotFound'
+
+security:
+  - bearerAuth: []
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  parameters:
+    HouseId:
+      name: houseId
+      in: path
+      required: true
+      schema:
+        type: integer
+
+  responses:
+    Ok:
+      description: 成功
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SuccessEnvelope'
+    BadRequest:
+      description: 必要參數未提供 / 總租金必須為正整數 / 狀態不合法 / 投票選項不合法
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorEnvelope'
+    Unauthorized:
+      description: 請先登入
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorEnvelope'
+    HouseNotFound:
+      description: 房屋不存在
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorEnvelope'
+
+  schemas:
+    SuccessEnvelope:
+      type: object
+      required: [success]
+      properties:
+        success:
+          type: boolean
+          enum: [true]
+        data: {}
+
+    ErrorEnvelope:
+      type: object
+      required: [success, error]
+      properties:
+        success:
+          type: boolean
+          enum: [false]
+        error:
+          $ref: '#/components/schemas/Error'
+
+    Error:
+      type: object
+      required: [violation_type]
+      properties:
+        violation_type:
+          type: string
+          enum:
+            - 請先登入
+            - 查無此成員
+            - 房屋不存在
+            - 必要參數未提供
+            - 總租金必須為正整數
+            - 網址已存在
+            - 狀態不合法
+            - 投票選項不合法
+
+    LandlordStatus:
+      type: string
+      enum: [待聯絡, 聯絡中, 已回覆]
+
+    ViewingStatus:
+      type: string
+      enum: [未開始, 待開始, 進行中, 已結束]
+
+    VoteChoice:
+      type: string
+      enum: [是, 否]
+
+    VoteResult:
+      type: string
+      enum: [列入考慮, 不考慮, 投票中]
+      description: ≥2 票是 → 列入考慮；≥2 票否 → 不考慮；其餘 → 投票中
+
+    MemberName:
+      type: object
+      required: [name]
+      additionalProperties: false
+      properties:
+        name:
+          type: string
+          example: ruby
+
+    Member:
+      type: object
+      required: [name, maxBudget, rentWeight]
+      properties:
+        name:
+          type: string
+          example: ruby
+        maxBudget:
+          type: integer
+          description: 個人最高預算（元）
+          example: 12000
+        rentWeight:
+          type: integer
+          description: 分租權重（12 / 10 / 11，總和 33）
+          example: 12
+
+    LoginRequest:
+      type: object
+      required: [name]
+      properties:
+        name:
+          type: string
+
+    LoginResult:
+      type: object
+      required: [token, member]
+      properties:
+        token:
+          type: string
+          description: JWT，payload 可識別成員姓名
+        member:
+          $ref: '#/components/schemas/Member'
+
+    CreateHouseRequest:
+      type: object
+      required: [url, totalRent, note]
+      properties:
+        url:
+          type: string
+        totalRent:
+          type: integer
+          minimum: 1
+        note:
+          type: string
+
+    UpdateTotalRentRequest:
+      type: object
+      required: [totalRent]
+      properties:
+        totalRent:
+          type: integer
+          minimum: 1
+
+    CastVoteRequest:
+      type: object
+      required: [choice]
+      properties:
+        choice:
+          $ref: '#/components/schemas/VoteChoice'
+
+    UpdateLandlordStatusRequest:
+      type: object
+      required: [landlordStatus]
+      properties:
+        landlordStatus:
+          $ref: '#/components/schemas/LandlordStatus'
+
+    UpdateViewingStatusRequest:
+      type: object
+      required: [viewingStatus]
+      properties:
+        viewingStatus:
+          $ref: '#/components/schemas/ViewingStatus'
+
+    House:
+      type: object
+      required: [id, url, totalRent, note, landlordStatus, viewingStatus, createdAt]
+      properties:
+        id:
+          type: integer
+        url:
+          type: string
+        totalRent:
+          type: integer
+        note:
+          type: string
+        landlordStatus:
+          $ref: '#/components/schemas/LandlordStatus'
+        viewingStatus:
+          $ref: '#/components/schemas/ViewingStatus'
+        createdAt:
+          type: string
+          format: date-time
+
+    RentSplit:
+      type: object
+      required: [memberName, amount, overBudget]
+      properties:
+        memberName:
+          type: string
+        amount:
+          type: integer
+          description: round(totalRent × rentWeight ÷ 33)，差額由權重最高者（ruby）吸收
+        overBudget:
+          type: boolean
+          description: amount > maxBudget（等於不算超出）
+
+    ConsideredHouse:
+      allOf:
+        - $ref: '#/components/schemas/House'
+        - type: object
+          required: [rentSplits]
+          properties:
+            rentSplits:
+              type: array
+              items:
+                $ref: '#/components/schemas/RentSplit'
+
+    HouseListItem:
+      allOf:
+        - $ref: '#/components/schemas/ConsideredHouse'
+        - type: object
+          required: [voteResult, myVote]
+          properties:
+            voteResult:
+              $ref: '#/components/schemas/VoteResult'
+            myVote:
+              allOf:
+                - $ref: '#/components/schemas/VoteChoice'
+              nullable: true
+              description: 登入成員自己的投票；未投票為 null。不回傳他人投票與票數。

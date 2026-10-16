@@ -14,7 +14,7 @@
 |-------|------|------------|------|
 | 01 | Requirement Analysis（需求分析 + 影響評估 + 行為設計） | — | done |
 | 02 | Entity Modeling（外部品質 — 資料） | 01 | done |
-| 03 | BDD Analysis（外部品質 — 可執行規格） | 02 | todo |
+| 03 | BDD Analysis（外部品質 — 可執行規格） | 02 | done |
 | 04 | API Contract（內部品質） | 03 | todo |
 | 05 | Backend TDD Track | 04 | todo |
 | 06 | Frontend Build Track | 04 | todo |
@@ -146,5 +146,15 @@ Phase 01-04 的產出物是 Phase 05-07 的共同依據（Single Source of Truth
 | create | members table | id, name(unique), max_budget, rent_weight；3 筆 seed |
 | create | houses table | id, url(unique), total_rent(>0), note, landlord_status, viewing_status, created_at |
 | create | votes table | id, house_id(cascade), member_id, choice；unique(house_id, member_id) |
+
+IMPL_IMPACT：Greenfield，無（全部 NEW_OPERATION）。
+
+### Phase 03 Change Summary（BDD Analysis）
+| 操作 | 目標 | 說明 |
+|------|------|------|
+| create | backend/tests/features/系統抽象.md | 實體、操作分類、Violation 模式、共用句型 S-G1 / S-T1 / S-T2 |
+| create | member/句型.md、house/句型.md | 句型清單 + QA 五維分析 + 覆蓋矩陣 |
+| create | 10 個 .feature 的 Examples | 86 個 scenario（含 Outline 展開），移除 @ignore |
+| modify | 5 個 house feature 的前置（參數）Rule | Q19：移除「房屋必須指定」 |
 
 IMPL_IMPACT：Greenfield，無（全部 NEW_OPERATION）。
