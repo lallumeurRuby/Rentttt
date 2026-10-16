@@ -47,5 +47,5 @@
 | Phase | 影響目標 | Impact Type | 來源 | 說明 |
 |-------|---------|-------------|------|------|
 | 05 | step_defs/update_total_rent | SENTENCE_PATTERN | Phase 01（預估） | When 句型將改變 |
-| 05/06 | PUT total-rent | ENDPOINT_ROUTE / ENDPOINT_SCHEMA | Phase 01（預估） | 待 Phase 04 確認 |
+| 05/06 | PUT total-rent（Phase 03 確認：step 句型變更）| ENDPOINT_ROUTE / ENDPOINT_SCHEMA | Phase 01（預估） | 待 Phase 04 確認 |
 | 05/06 | POST /houses | ENDPOINT_SCHEMA | Phase 01（預估） | note 改選填 |

@@ -1,4 +1,4 @@
-@ignore @command
+@command
 Feature: 新增房屋
 
   成員新增一筆房屋來源，加入房屋列表。網址與總租金必填，備註可留空。
@@ -95,6 +95,16 @@ Feature: 新增房屋
         | https://rent.example/b | 1      | 最低租金測試 |
 
   Rule: 後置（狀態）- 未填備註時房屋應以空白備註新增
+
+    Example: 未填備註時新增成功且備註為空白
+      Given 成員 "ruby" 已登入
+      When 成員 "ruby" 新增房屋：
+        | 網址                   | 總租金 | 備註 |
+        | https://rent.example/a | 33000  |      |
+      Then 操作成功
+      And 系統中的房屋應為：
+        | 網址                   | 總租金 | 備註 |
+        | https://rent.example/a | 33000  |      |
 
   Rule: 後置（狀態）- 新房屋的房東狀態應為「待聯絡」
 

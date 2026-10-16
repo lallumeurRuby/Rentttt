@@ -13,7 +13,7 @@
 | Phase | Name | Depends On | 狀態 |
 |-------|------|------------|------|
 | 01 | Requirement Analysis（需求分析 + 影響評估 + 行為設計） | — | done |
-| 02 | Entity Modeling（外部品質 — 資料） | 01 | todo |
+| 02 | Entity Modeling（外部品質 — 資料） | 01 | done |
 | 03 | BDD Analysis（外部品質 — 可執行規格） | 02 | todo |
 | 04 | API Contract（內部品質） | 03 | todo |
 | 05 | Backend TDD Track | 04 | todo |
@@ -93,3 +93,17 @@ Phase 01-04 的產出物是 Phase 05-07 的共同依據（Single Source of Truth
 | modify | houses.total_rent | 註解「唯一可編輯欄位」→「可編輯」 |
 
 IMPL_IMPACT：無（僅註解變更，無 schema / migration 變動）。
+
+### Phase 03 Change Summary（BDD Analysis）
+| 操作 | 目標 | 說明 |
+|------|------|------|
+| modify | 系統抽象.md | 操作「編輯房屋總租金」→「編輯房屋」（總租金必填、備註選填）；新增房屋備註選填 |
+| modify | house/句型.md | W4 句型改為 `成員 "{姓名}" 編輯房屋 "{網址}"：`（總租金 / 備註）；測試分析與覆蓋矩陣更新 |
+| modify | house/編輯房屋.feature | 9 個既有 Example 改用新句型；+2 Example（備註更新、備註留空清空）；移除 @ignore |
+| modify | house/新增房屋.feature | 移除「缺少備註」Example 列；+1 Example（未填備註以空白新增）；移除 @ignore |
+
+## IMPL_IMPACT（Phase 03 回填）
+| Phase | 影響目標 | Impact Type | 說明 |
+|-------|---------|-------------|------|
+| 05 | steps/house/commands/update_total_rent.py | SENTENCE_PATTERN | When 句型改為「編輯房屋 "{網址}"：」，request body 加 note |
+| 05 | HouseService.create_house | NEW behavior | 備註可不提供（存空字串） |
