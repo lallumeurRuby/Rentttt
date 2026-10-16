@@ -1,0 +1,31 @@
+# ── 機密 / 本機設定 ─────────────────────────────
+.env
+.env*.local
+!.env.example
+
+# ── Python（backend/） ───────────────────────────
+.venv/
+__pycache__/
+*.py[cod]
+.mypy_cache/
+.pytest_cache/
+pretty.output
+
+# ── Node / Next.js（frontend/） ──────────────────
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+next-env.d.ts
+
+# ── 部署平台 ─────────────────────────────────────
+.vercel/
+
+# ── 編輯器 / 系統 ───────────────────────────────
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# ── Claude Code 個人設定（skills 仍會追蹤） ─────
+.claude/settings.local.json

@@ -1,0 +1,23 @@
+# Render Blueprint：後端 FastAPI（https://render.com/docs/blueprint-spec）
+# Render Dashboard → New → Blueprint → 選擇此 repo；DATABASE_URL 需在建立時手動填入。
+services:
+  - type: web
+    name: rentttt-api
+    runtime: python
+    plan: free
+    region: singapore
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    # 每次部署先套用 migration（建表、預建成員、開啟 RLS），再啟動 API
+    startCommand: python -m alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.8
+      - key: DATABASE_URL
+        sync: false # Supabase Session pooler 連線字串（postgresql+psycopg://...?sslmode=require）
+      - key: JWT_SECRET
+        generateValue: true
+      - key: CORS_ORIGINS
+        sync: false # Vercel 前端網址，例如 https://rentttt.vercel.app

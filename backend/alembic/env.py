@@ -18,7 +18,8 @@ target_metadata = Base.metadata
 
 db_url = os.getenv("DATABASE_URL")
 if db_url:
-    config.set_main_option("sqlalchemy.url", db_url)
+    # configparser 會把 % 當插值符號；URL-encode 過的密碼（如 %40）需跳脫成 %%
+    config.set_main_option("sqlalchemy.url", db_url.replace("%", "%%"))
 
 
 def run_migrations_offline() -> None:

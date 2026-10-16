@@ -109,6 +109,60 @@ npm run typecheck
 | ---------------- | --------------------------------------------------------------------- | ------------------------------------------------ |
 | `DATABASE_URL` | `postgresql+psycopg://postgres:postgres@localhost:5434/rentttt_dev` | 資料庫連線                                       |
 | `JWT_SECRET`   | 開發用預設值                                                          | **正式環境務必改成至少 32 字元的隨機字串** |
+| `CORS_ORIGINS` | `*`                                                                   | 逗號分隔的允許來源（正式環境填前端網址）         |
+
+可以寫在 `backend/.env` 裡（範本見 `backend/.env.example`，`.env` 已被 git 忽略）。
+
+## 部署（免費方案）
+
+```
+瀏覽器 → Vercel（前端）→ /api/* 轉發 → Render（FastAPI）→ Supabase（PostgreSQL）
+```
+
+| 部分   | 平台                            | 設定來源                      |
+| ------ | ------------------------------- | ----------------------------- |
+| 資料庫 | Supabase                        | Dashboard 的連線字串          |
+| 後端   | Render（Free Web Service）      | 專案根目錄的 `render.yaml`    |
+| 前端   | Vercel（Hobby）                 | Vercel Dashboard 的環境變數   |
+
+### 1. Supabase（資料庫）
+
+1. Dashboard → **Connect** → 選 **Session pooler**（port 5432，支援 IPv4），複製連線字串。
+2. 把開頭改成 `postgresql+psycopg://`，結尾加上 `?sslmode=require`。密碼若含特殊字元，要先 URL-encode。
+3. 不需要手動建表：後端每次部署都會自動執行 `alembic upgrade head`。這會建表、寫入三位成員的初始資料，並開啟 RLS，擋住 Supabase 自動開放的 Data API。
+
+### 2. Render（後端）
+
+1. 用 GitHub 登入 Render → **New → Blueprint** → 選這個 repo。Render 會讀取 `render.yaml`，建立 `rentttt-api` 服務。
+2. 填入環境變數：
+   - `DATABASE_URL`：Supabase 的連線字串
+   - `CORS_ORIGINS`：Vercel 的前端網址
+   - `JWT_SECRET`：Render 會自動產生，不用填
+3. 部署完成後，確認 `https://<服務名>.onrender.com/health` 回傳 `{"status":"ok"}`。
+
+### 3. Vercel（前端）
+
+1. 用 GitHub 登入 Vercel → **Add New → Project** → Import 這個 repo。
+2. **Root Directory** 設成 `frontend`，框架會自動偵測為 Next.js。
+3. 設定 Environment Variables：
+
+   | 變數                       | 值                                  |
+   | -------------------------- | ----------------------------------- |
+   | `NEXT_PUBLIC_MOCK_API`     | `false`                             |
+   | `NEXT_PUBLIC_API_BASE_URL` | `/api`                              |
+   | `BACKEND_URL`              | `https://<服務名>.onrender.com`     |
+
+4. 部署完成後，回到 Render 把 `CORS_ORIGINS` 設成 Vercel 的網址。
+
+### 之後怎麼更新
+
+`git push` 到 `main` 後，Render 和 Vercel 都會自動重新部署。後端每次部署都會套用新的 migration。
+
+### 免費方案的限制
+
+- **Render 會休眠：** 閒置 15 分鐘後休眠，下一次開啟要等約 30–60 秒，之後就恢復正常速度。
+- **Supabase 會暫停：** 連續 7 天沒有任何請求，專案會暫停，要到 Dashboard 手動恢復。
+- **登入沒有密碼：** 依需求只要點名字就能登入，所以任何知道網址的人都能登入。請只把網址分享給成員。
 
 ## 常見問題
 

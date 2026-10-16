@@ -17,8 +17,9 @@ def set_session_factory(factory: sessionmaker[Session]) -> None:
 def _get_session_factory() -> sessionmaker[Session]:
     global _session_factory
     if _session_factory is None:
+        # Supabase pooler 會關閉閒置連線：pre_ping 檢查、recycle 定期汰換
         _session_factory = sessionmaker(
-            bind=create_engine(settings.DATABASE_URL, pool_pre_ping=True)
+            bind=create_engine(settings.DATABASE_URL, pool_pre_ping=True, pool_recycle=300)
         )
     return _session_factory
 
