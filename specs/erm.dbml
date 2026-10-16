@@ -1,0 +1,62 @@
+// 找租屋追蹤平台 — Entity Model
+// 來源：backend/tests/features/**/*.feature（Phase 01 Rules）
+// 推導值（不存欄位，於查詢時即時計算）：
+//   - 投票結果：≥2 票「是」→ 列入考慮；≥2 票「否」→ 不考慮；其餘 → 投票中
+//   - 分租租金：round(total_rent × rent_weight ÷ 33)，差額由 rent_weight 最高者吸收
+//   - 是否超出預算：分租租金 > max_budget
+// 登入憑證：JWT（無狀態），不建 session 表
+
+Enum landlord_status {
+  "待聯絡" [note: '新房屋預設值']
+  "聯絡中"
+  "已回覆"
+}
+
+Enum viewing_status {
+  "未開始" [note: '新房屋預設值']
+  "待開始"
+  "進行中"
+  "已結束"
+}
+
+Enum vote_choice {
+  "是"
+  "否"
+}
+
+Table members {
+  id          integer  [pk, increment]
+  name        varchar  [unique, not null, note: '登入識別（ruby / joyce / cya）']
+  max_budget  integer  [not null, note: '個人最高預算（元）']
+  rent_weight integer  [not null, note: '分租權重（12 / 10 / 11，總和 33）']
+
+  Note: '成員。預建 3 筆 seed（ruby 12000/12、joyce 10000/10、cya 11000/11），系統內不可新增或修改'
+}
+
+Table houses {
+  id              integer          [pk, increment]
+  url             varchar          [unique, not null, note: '網址；建立後不可編輯；不得與目前存在的房屋完全相同']
+  total_rent      integer          [not null, note: '總租金（元），must be > 0；唯一可編輯欄位']
+  note            text             [not null, note: '備註；建立後不可編輯']
+  landlord_status landlord_status  [not null, default: '待聯絡', note: '可任意切換']
+  viewing_status  viewing_status   [not null, default: '未開始', note: '可任意切換']
+  created_at      timestamp        [not null, default: `now()`, note: '排序：總租金相同時新的在前']
+
+  Note: '房屋物件。刪除為永久刪除，投票一併刪除。列表排序：total_rent ASC, created_at DESC'
+}
+
+Table votes {
+  id        integer      [pk, increment]
+  house_id  integer      [not null]
+  member_id integer      [not null]
+  choice    vote_choice  [not null]
+
+  indexes {
+    (house_id, member_id) [unique, note: '每位成員對同一房屋只保留一票；改票 = 更新 choice']
+  }
+
+  Note: '是否列入考慮的匿名投票。查詢時只回傳登入成員自己的 choice，不回傳他人'
+}
+
+Ref: votes.house_id > houses.id [delete: cascade]
+Ref: votes.member_id > members.id

@@ -1,0 +1,102 @@
+%% ═══ 區段一：Activity 標頭與 Actor 宣告 ═══
+%% [ACTIVITY] 找租屋追蹤
+%% 三位成員權限完全相同（Q10 已確認）
+%% [ACTOR] 成員 -> {specs/actors/成員.md}
+
+flowchart TD
+
+%% ═══ 區段二：節點定義 ═══
+
+    Start(( ))
+
+    %% 登入頁列出成員供點選，此查詢不需登入（Q9 補問已確認）
+    %% [STEP:1] @成員 {backend/tests/features/member/查詢成員列表.feature}
+    S1["@成員<br/>查看成員列表（登入頁）"]
+
+    %% 除查詢成員列表與登入外，所有操作皆需先登入（Q7 已確認）
+    %% [STEP:2] @成員 {backend/tests/features/member/登入.feature}
+    S2["@成員<br/>點選姓名登入"]
+
+    %% 後端仍驗證，名單外姓名回傳「查無此成員」（Q9 已確認）
+    %% [DECISION:2a] 姓名是否為已存在的成員
+    D2a{"姓名是否為已存在的成員"}
+
+    %% [BRANCH:2a:否 -> 1]
+    B2a_no["登入失敗"]
+
+    %% [STEP:3] @成員 {backend/tests/features/house/查詢房屋列表.feature}
+    S3["@成員<br/>查看房屋列表"]
+
+    %% 需要刪除房屋；不需要登出（Q11 已確認）
+    %% [DECISION:3a] 成員要進行的操作
+    D3a{"成員要進行的操作"}
+
+    %% [BRANCH:3a:新增房屋 -> 3] @成員 {backend/tests/features/house/新增房屋.feature}
+    B3a_add["@成員<br/>新增房屋"]
+
+    %% [BRANCH:3a:投票 -> 3] @成員 {backend/tests/features/house/投票是否列入考慮.feature}
+    B3a_vote["@成員<br/>投票是否列入考慮"]
+
+    %% [BRANCH:3a:變更房東狀態 -> 3] @成員 {backend/tests/features/house/變更房東狀態.feature}
+    B3a_landlord["@成員<br/>變更房東狀態"]
+
+    %% [BRANCH:3a:變更看房狀態 -> 3] @成員 {backend/tests/features/house/變更看房狀態.feature}
+    B3a_viewing["@成員<br/>變更看房狀態"]
+
+    %% [BRANCH:3a:編輯總租金 -> 3] @成員 {backend/tests/features/house/編輯房屋總租金.feature}
+    B3a_edit["@成員<br/>編輯房屋總租金（彈窗）"]
+
+    %% [BRANCH:3a:刪除房屋 -> 3] @成員 {backend/tests/features/house/刪除房屋.feature}
+    B3a_delete["@成員<br/>刪除房屋"]
+
+    %% [BRANCH:3a:查看考慮列表] @成員 {backend/tests/features/house/查詢考慮列表.feature}
+    B3a_consider["@成員<br/>查看考慮列表"]
+
+    %% [DECISION:3a1] 在考慮列表要進行的操作
+    D3a1{"在考慮列表要進行的操作"}
+
+    %% [BRANCH:3a1:變更房東狀態 -> 3a1] @成員 {backend/tests/features/house/變更房東狀態.feature}
+    B3a1_landlord["@成員<br/>變更房東狀態"]
+
+    %% [BRANCH:3a1:變更看房狀態 -> 3a1] @成員 {backend/tests/features/house/變更看房狀態.feature}
+    B3a1_viewing["@成員<br/>變更看房狀態"]
+
+    %% [BRANCH:3a1:回房屋列表 -> 3]
+    B3a1_back["回房屋列表"]
+
+    %% [BRANCH:3a:結束使用]
+    B3a_done["結束使用"]
+
+    End((( )))
+
+%% ═══ 區段三：邊定義 ═══
+
+    Start --> S1
+    S1 --> S2
+    S2 --> D2a
+    D2a -- 否 --> B2a_no
+    B2a_no --> S1
+    D2a -- 是 --> S3
+    S3 --> D3a
+    D3a -- 新增房屋 --> B3a_add
+    B3a_add --> S3
+    D3a -- 投票 --> B3a_vote
+    B3a_vote --> S3
+    D3a -- 變更房東狀態 --> B3a_landlord
+    B3a_landlord --> S3
+    D3a -- 變更看房狀態 --> B3a_viewing
+    B3a_viewing --> S3
+    D3a -- 編輯總租金 --> B3a_edit
+    B3a_edit --> S3
+    D3a -- 刪除房屋 --> B3a_delete
+    B3a_delete --> S3
+    D3a -- 查看考慮列表 --> B3a_consider
+    B3a_consider --> D3a1
+    D3a1 -- 變更房東狀態 --> B3a1_landlord
+    B3a1_landlord --> D3a1
+    D3a1 -- 變更看房狀態 --> B3a1_viewing
+    B3a1_viewing --> D3a1
+    D3a1 -- 回房屋列表 --> B3a1_back
+    B3a1_back --> S3
+    D3a -- 結束使用 --> B3a_done
+    B3a_done --> End

@@ -2,8 +2,8 @@
 
 ## 審查進度
 
-- [ ] 02.1 相關規格已審查 — **簽名**: ___
-- [ ] 02.2 交付物已審查 — **簽名**: ___
+- [x] 02.1 相關規格已審查 — **簽名**: 2026-10-16 12:08
+- [x] 02.2 交付物已審查 — **簽名**: 2026-10-16 12:08
 
 ## 目的 (What)
 
@@ -37,12 +37,12 @@ carry-on Step 02.2 觸發時：
 
 | # | 交付物 | 路徑 | 狀態 |
 |---|--------|------|------|
-| 02.1 | erm.dbml | `C:/Users/retailingdata/Desktop/ruby/Rentttt/specs/erm.dbml` | PENDING |
-| 02.2 | 澄清紀錄 | `C:/Users/retailingdata/Desktop/ruby/Rentttt/specs/clarify/` | PENDING |
+| 02.1 | erm.dbml | `C:/Users/retailingdata/Desktop/ruby/Rentttt/specs/erm.dbml` | DONE |
+| 02.2 | 澄清紀錄 | `C:/Users/retailingdata/Desktop/ruby/Rentttt/specs/clarify/` | DONE |
 
 ### 驗收點
 
-- [ ] erm.dbml 已產出
-- [ ] Grep `CiC\(` 掃描 `entity/erm.dbml` 結果為空
-- [ ] 每個 Feature 中的操作都能追溯到 erm.dbml 中的實體
-- [ ] 欄位名、型別、約束條件完整
+- [x] erm.dbml 已產出
+- [x] Grep `CiC\(` 掃描 `entity/erm.dbml` 結果為空
+- [x] 每個 Feature 中的操作都能追溯到 erm.dbml 中的實體
+- [x] 欄位名、型別、約束條件完整

@@ -2,8 +2,8 @@
 
 ## 審查進度
 
-- [ ] 01.1 相關規格已審查 — **簽名**: ___
-- [ ] 01.2 交付物已審查 — **簽名**: ___
+- [x] 01.1 相關規格已審查 — **簽名**: 2026-10-16 12:02
+- [x] 01.2 交付物已審查 — **簽名**: 2026-10-16 12:02
 
 ## 目的 (What)
 
@@ -136,18 +136,18 @@ carry-on Step 01.2 觸發時：
 
 | # | 交付物 | 路徑 | 狀態 |
 |---|--------|------|------|
-| 01.1 | Execution Plan | `C:/Users/retailingdata/Desktop/ruby/Rentttt/plans/house-hunting-tracker/plan.md` | PENDING |
-| 01.2 | Activity Diagrams | `C:/Users/retailingdata/Desktop/ruby/Rentttt/specs/activities/` | PENDING |
-| 01.3 | Feature Files（Rules only） | `C:/Users/retailingdata/Desktop/ruby/Rentttt/backend/tests/features/` | PENDING |
-| 01.4 | Actor 定義 | `C:/Users/retailingdata/Desktop/ruby/Rentttt/specs/actors/` | PENDING |
-| 01.5 | 澄清紀錄 | `C:/Users/retailingdata/Desktop/ruby/Rentttt/specs/clarify/` | PENDING |
+| 01.1 | Execution Plan | `C:/Users/retailingdata/Desktop/ruby/Rentttt/plans/house-hunting-tracker/plan.md` | DONE |
+| 01.2 | Activity Diagrams | `C:/Users/retailingdata/Desktop/ruby/Rentttt/specs/activities/` | DONE |
+| 01.3 | Feature Files（Rules only） | `C:/Users/retailingdata/Desktop/ruby/Rentttt/backend/tests/features/` | DONE |
+| 01.4 | Actor 定義 | `C:/Users/retailingdata/Desktop/ruby/Rentttt/specs/actors/` | DONE |
+| 01.5 | 澄清紀錄 | `C:/Users/retailingdata/Desktop/ruby/Rentttt/specs/clarify/` | DONE |
 
 ### 驗收點
 
-- [ ] Composition Analysis 完成
-- [ ] Structural Read 完成（既有系統）或跳過（greenfield）
-- [ ] Execution Plan 產出，涵蓋 Phase 02-08 的 scope
-- [ ] Grep `CiC\(` 掃描 `activities/` + `features/` 結果為空
-- [ ] Actor 合法性掃描通過
-- [ ] 面向覆蓋率 F1-F6 全部 Clear
-- [ ] 所有新建/修改的 .feature 含 Rules、標記 `@ignore`、無 Examples
+- [x] Composition Analysis 完成
+- [x] Structural Read 完成（既有系統）或跳過（greenfield）
+- [x] Execution Plan 產出，涵蓋 Phase 02-08 的 scope
+- [x] Grep `CiC\(` 掃描 `activities/` + `features/` 結果為空
+- [x] Actor 合法性掃描通過
+- [x] 面向覆蓋率 F1-F6 全部 Clear
+- [x] 所有新建/修改的 .feature 含 Rules、標記 `@ignore`、無 Examples
