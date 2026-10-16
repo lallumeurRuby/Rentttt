@@ -66,6 +66,8 @@
 .note {
   max-width: 200px;
   color: var(--md-on-surface-variant);
+  white-space: pre-wrap; /* 保留備註中的換行 */
+  overflow-wrap: anywhere;
 }
 
 .noteEmpty {

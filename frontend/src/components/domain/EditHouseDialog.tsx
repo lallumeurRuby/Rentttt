@@ -74,12 +74,12 @@ export function EditHouseDialog({ house, onSave, onClose }: EditHouseDialogProps
         </label>
         <label className="field">
           <span className="field-label">備註</span>
-          <input
+          <textarea
             className="input"
-            type="text"
+            rows={3}
             value={note}
             onChange={(e) => setNote(e.target.value)}
-            placeholder="可留空"
+            placeholder="可留空，可換行"
             data-testid="edit-note"
           />
         </label>

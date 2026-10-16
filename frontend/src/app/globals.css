@@ -209,6 +209,15 @@ body {
   border: 2px solid var(--md-primary);
   padding: 0 calc(var(--md-space-4) - 1px);
 }
+textarea.input {
+  min-height: 72px;
+  padding: var(--md-space-3) var(--md-space-4);
+  line-height: 24px;
+  resize: vertical;
+}
+textarea.input:focus-visible {
+  padding: calc(var(--md-space-3) - 1px) calc(var(--md-space-4) - 1px);
+}
 .input:disabled,
 .select:disabled {
   border-color: var(--md-outline-variant);

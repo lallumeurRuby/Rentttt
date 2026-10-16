@@ -68,7 +68,7 @@ export function AddHouseForm({ onSubmit }: AddHouseFormProps) {
             data-testid="add-url"
           />
         </label>
-        <label className="field">
+        <label className={`field ${styles.rentField}`}>
           <span className="field-label">總租金（元）*</span>
           <input
             className="input"
@@ -89,11 +89,12 @@ export function AddHouseForm({ onSubmit }: AddHouseFormProps) {
         </label>
         <label className={`field ${styles.noteField}`}>
           <span className="field-label">備註</span>
-          <input
+          <textarea
             className="input"
-            type="text"
+            rows={2}
             value={note}
             onChange={(e) => setNote(e.target.value)}
+            placeholder="可留空，可換行"
             data-testid="add-note"
           />
         </label>

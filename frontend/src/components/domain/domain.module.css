@@ -91,23 +91,34 @@
   flex-direction: column;
   gap: var(--md-space-3);
 }
+/* 第一列：網址、總租金；第二列：備註（多行）+ 新增按鈕。DOM 順序不變，維持 Tab 順序 */
 .addFields {
   display: grid;
-  grid-template-columns: minmax(220px, 2fr) minmax(140px, 1fr) minmax(180px, 2fr) auto;
+  grid-template-columns: minmax(220px, 2fr) minmax(140px, 1fr) auto;
+  grid-template-areas:
+    'url  rent .'
+    'note note submit';
   gap: var(--md-space-3);
   align-items: end;
 }
+.urlField {
+  grid-area: url;
+}
+.rentField {
+  grid-area: rent;
+}
+.noteField {
+  grid-area: note;
+}
 .addButton {
+  grid-area: submit;
   min-height: 48px;
 }
 
 @media (max-width: 960px) {
   .addFields {
-    grid-template-columns: 1fr 1fr;
-  }
-  .urlField,
-  .noteField {
-    grid-column: 1 / -1;
+    grid-template-columns: 1fr;
+    grid-template-areas: 'url' 'rent' 'note' 'submit';
   }
 }
 
