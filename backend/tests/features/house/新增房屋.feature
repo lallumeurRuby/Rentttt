@@ -1,7 +1,7 @@
-@command
+@ignore @command
 Feature: 新增房屋
 
-  成員新增一筆房屋來源，加入房屋列表。
+  成員新增一筆房屋來源，加入房屋列表。網址與總租金必填，備註可留空。
 
   Background:
     Given 系統中有以下成員：
@@ -18,7 +18,7 @@ Feature: 新增房屋
         | https://rent.example/a | 33000  | 近捷運 |
       Then 操作失敗，violation_type 為 "請先登入"
 
-  Rule: 前置（參數）- 網址、總租金、備註必須提供（否則錯誤為「必要參數未提供」）
+  Rule: 前置（參數）- 網址、總租金必須提供（否則錯誤為「必要參數未提供」）
 
     Scenario Outline: 缺少<缺少欄位>時新增房屋失敗
       Given 成員 "ruby" 已登入
@@ -31,7 +31,6 @@ Feature: 新增房屋
         | 缺少欄位 | 網址                   | 總租金 | 備註   |
         | 網址     |                        | 33000  | 近捷運 |
         | 總租金   | https://rent.example/a |        | 近捷運 |
-        | 備註     | https://rent.example/a | 33000  |        |
 
   Rule: 前置（參數）- 總租金必須為正整數（否則錯誤為「總租金必須為正整數」）
 
@@ -94,6 +93,8 @@ Feature: 新增房屋
         | 網址                   | 總租金 | 備註         |
         | https://rent.example/a | 33000  | 近捷運       |
         | https://rent.example/b | 1      | 最低租金測試 |
+
+  Rule: 後置（狀態）- 未填備註時房屋應以空白備註新增
 
   Rule: 後置（狀態）- 新房屋的房東狀態應為「待聯絡」
 

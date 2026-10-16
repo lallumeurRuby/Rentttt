@@ -1,7 +1,7 @@
-@command
-Feature: 編輯房屋總租金
+@ignore @command
+Feature: 編輯房屋
 
-  成員從房屋列表開啟編輯彈窗，修改房屋的總租金。網址與備註不可編輯。
+  成員從房屋列表開啟編輯彈窗，修改房屋的總租金與備註，一次儲存。總租金必填、備註可留空（留空即清空）。網址不可編輯。
 
   Background:
     Given 系統中有以下成員：
@@ -84,14 +84,8 @@ Feature: 編輯房屋總租金
         | 網址                   |
         | https://rent.example/a |
 
-  Rule: 後置（狀態）- 房屋備註應維持不變
+  Rule: 後置（狀態）- 房屋備註應更新為新的內容
 
-    Example: 編輯總租金後備註不變
-      Given 成員 "ruby" 已登入
-      When 成員 "ruby" 將房屋 "https://rent.example/a" 的總租金改為：
-        | 總租金 |
-        | 30000  |
-      Then 操作成功
-      And 系統中的房屋應為：
-        | 網址                   | 備註   |
-        | https://rent.example/a | 近捷運 |
+  Rule: 後置（狀態）- 備註留空時房屋備註應清空
+
+  # ⚠ 新 Rule 的 Example 與 When 句型（同時帶總租金與備註）待 Phase 03 BDD Analysis 補充。

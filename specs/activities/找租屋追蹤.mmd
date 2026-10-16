@@ -43,8 +43,8 @@ flowchart TD
     %% [BRANCH:3a:變更看房狀態 -> 3] @成員 {backend/tests/features/house/變更看房狀態.feature}
     B3a_viewing["@成員<br/>變更看房狀態"]
 
-    %% [BRANCH:3a:編輯總租金 -> 3] @成員 {backend/tests/features/house/編輯房屋總租金.feature}
-    B3a_edit["@成員<br/>編輯房屋總租金（彈窗）"]
+    %% [BRANCH:3a:編輯房屋 -> 3] @成員 {backend/tests/features/house/編輯房屋.feature}
+    B3a_edit["@成員<br/>編輯房屋（彈窗：總租金、備註）"]
 
     %% [BRANCH:3a:刪除房屋 -> 3] @成員 {backend/tests/features/house/刪除房屋.feature}
     B3a_delete["@成員<br/>刪除房屋"]
@@ -86,7 +86,7 @@ flowchart TD
     B3a_landlord --> S3
     D3a -- 變更看房狀態 --> B3a_viewing
     B3a_viewing --> S3
-    D3a -- 編輯總租金 --> B3a_edit
+    D3a -- 編輯房屋 --> B3a_edit
     B3a_edit --> S3
     D3a -- 刪除房屋 --> B3a_delete
     B3a_delete --> S3
