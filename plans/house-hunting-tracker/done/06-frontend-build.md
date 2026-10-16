@@ -2,8 +2,8 @@
 
 ## 審查進度
 
-- [ ] 06.1 相關規格已審查 — **簽名**: ___
-- [ ] 06.2 交付物已審查 — **簽名**: ___
+- [x] 06.1 相關規格已審查 — **簽名**: 2026-10-16 13:00
+- [x] 06.2 交付物已審查 — **簽名**: 2026-10-16 13:00
 
 ## 目的 (What)
 
@@ -57,15 +57,15 @@ carry-on Step 06.2 觸發時：
 
 | # | 交付物 | 路徑 | 狀態 |
 |---|--------|------|------|
-| 06.1 | Frontend 骨架 | `C:/Users/retailingdata/Desktop/ruby/Rentttt/frontend/` | PENDING |
-| 06.2 | MSW Handlers | `C:/Users/retailingdata/Desktop/ruby/Rentttt/frontend/src/mocks/handlers/` | PENDING |
-| 06.3 | Pages | `C:/Users/retailingdata/Desktop/ruby/Rentttt/frontend/src/app/` | PENDING |
+| 06.1 | Frontend 骨架 | `C:/Users/retailingdata/Desktop/ruby/Rentttt/frontend/` | DONE |
+| 06.2 | MSW Handlers | `C:/Users/retailingdata/Desktop/ruby/Rentttt/frontend/src/mocks/handlers/` | DONE |
+| 06.3 | Pages | `C:/Users/retailingdata/Desktop/ruby/Rentttt/frontend/src/app/` | DONE |
 
 ### 驗收點
 
-- [ ] Starter Batch A-F 全部 Gate 通過
-- [ ] MSW handlers 覆蓋 api.yml 所有 endpoint
-- [ ] Chrome Test Guard 通過（見下方）
+- [x] Starter Batch A-F 全部 Gate 通過
+- [x] MSW handlers 覆蓋 api.yml 所有 endpoint
+- [x] Chrome Test Guard 通過（見下方）
 
 ### Chrome Test Guard（不可跳過）
 

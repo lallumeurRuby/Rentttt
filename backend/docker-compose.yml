@@ -1,4 +1,5 @@
-version: '3.8'
+# 明確指定專案名稱：資料夾名 `backend` 很常見，未指定時會與其他專案的 compose 專案撞名
+name: rentttt
 
 services:
   postgres:
@@ -9,9 +10,14 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:
-      - "5432:5432"
+      - "5434:5432"  # 本機 5432 / 5433 已被其他專案使用
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 5s
       timeout: 5s
       retries: 5
+
+volumes:
+  postgres_data:
