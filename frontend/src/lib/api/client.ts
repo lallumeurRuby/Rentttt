@@ -1,8 +1,8 @@
-const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || '/api/v1'
+const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || '/api'
 
+// api.yml ErrorEnvelope：{ success: false, error: { violation_type } }
 interface ApiError {
-  code: string
-  message: string
+  violation_type: string
 }
 
 interface ApiResponse<T> {
@@ -15,7 +15,7 @@ interface ApiResponse<T> {
  * Shared HTTP client for all API calls.
  * Worker should NOT create separate fetch logic — use this client.
  *
- * Auth: reads `auth-token` from document.cookie and sends as Bearer token.
+ * Auth: reads `rentttt-auth-token` from document.cookie（避免與 localhost 其他專案的 auth-token 衝突） and sends as Bearer token.
  * This is production-safe — no mock-specific logic here.
  */
 export async function apiClient<T>(
@@ -31,7 +31,7 @@ export async function apiClient<T>(
 
   // Read auth token from cookie (set by login page)
   if (typeof document !== 'undefined') {
-    const match = document.cookie.match(/(?:^|;\s*)auth-token=([^;]*)/)
+    const match = document.cookie.match(/(?:^|;\s*)rentttt-auth-token=([^;]*)/)
     if (match) {
       ;(headers as Record<string, string>)['Authorization'] = `Bearer ${match[1]}`
     }
@@ -45,8 +45,8 @@ export async function apiClient<T>(
   const json: ApiResponse<T> = await res.json()
 
   if (!res.ok || !json.success) {
-    const error = json.error ?? { code: 'UNKNOWN', message: res.statusText }
-    throw new ApiClientError(error.code, error.message, res.status)
+    const violationType = json.error?.violation_type ?? res.statusText
+    throw new ApiClientError(violationType, violationType, res.status)
   }
 
   return json.data as T

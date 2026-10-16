@@ -1,22 +1,20 @@
 'use client'
 
 import { useEffect } from 'react'
+import styles from './Toast.module.css'
 
 interface ToastProps {
   message: string
   onClose: () => void
   duration?: number
+  tone?: 'info' | 'error'
 }
 
 /**
- * Toast notification component.
- * Worker should use this in pages via useState to manage toast state.
- *
- * Usage:
- *   const [toast, setToast] = useState<string | null>(null)
- *   {toast && <Toast message={toast} onClose={() => setToast(null)} />}
+ * Snackbar（M3）。頁面以 useState 管理：
+ *   const [toast, setToast] = useState<ToastState | null>(null)
  */
-export function Toast({ message, onClose, duration = 5000 }: ToastProps) {
+export function Toast({ message, onClose, duration = 4000, tone = 'info' }: ToastProps) {
   useEffect(() => {
     const timer = setTimeout(onClose, duration)
     return () => clearTimeout(timer)
@@ -25,19 +23,15 @@ export function Toast({ message, onClose, duration = 5000 }: ToastProps) {
   return (
     <div
       data-testid="toast"
-      role="alert"
-      style={{
-        position: 'fixed',
-        bottom: '1rem',
-        right: '1rem',
-        padding: '0.75rem 1.5rem',
-        backgroundColor: '#333',
-        color: '#fff',
-        borderRadius: '0.5rem',
-        zIndex: 9999,
-      }}
+      role={tone === 'error' ? 'alert' : 'status'}
+      className={`${styles.snackbar} ${tone === 'error' ? styles.error : ''}`}
     >
       {message}
     </div>
   )
+}
+
+export interface ToastState {
+  message: string
+  tone: 'info' | 'error'
 }

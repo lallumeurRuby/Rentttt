@@ -1,0 +1,116 @@
+/* 分租試算 */
+.splits {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 170px;
+}
+.split {
+  display: grid;
+  grid-template-columns: 48px 64px auto;
+  align-items: center;
+  gap: var(--md-space-2);
+  font-variant-numeric: tabular-nums;
+}
+.splitName {
+  color: var(--md-on-surface-variant);
+  font-size: 12px;
+}
+.splitAmount {
+  text-align: right;
+}
+.over .splitAmount {
+  color: var(--md-error);
+  font-weight: 700;
+}
+.overTag {
+  justify-self: start;
+  padding: 0 var(--md-space-2);
+  border-radius: var(--md-radius-xs);
+  background: var(--md-error-container);
+  color: var(--md-on-error-container);
+  font-size: 11px;
+  line-height: 18px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* 投票 */
+.vote {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--md-space-2);
+  min-width: 120px;
+}
+.segmented {
+  display: inline-flex;
+  border: 1px solid var(--md-outline);
+  border-radius: var(--md-radius-full);
+  overflow: hidden;
+}
+.segment {
+  min-width: 52px;
+  min-height: 32px;
+  padding: 0 var(--md-space-3);
+  border: none;
+  background: transparent;
+  color: var(--md-on-surface);
+  font: 500 13px/20px var(--md-font);
+  cursor: pointer;
+  transition: background var(--md-motion-duration) var(--md-motion-easing);
+}
+.segment + .segment {
+  border-left: 1px solid var(--md-outline);
+}
+.segment:hover:not(:disabled) {
+  background: var(--md-surface-container-high);
+}
+.segment:focus-visible {
+  outline: 3px solid var(--md-primary);
+  outline-offset: -3px;
+}
+.segment:disabled {
+  cursor: default;
+}
+.selected,
+.selected:disabled {
+  background: var(--md-secondary-container);
+  color: var(--md-on-secondary-container);
+}
+.hint {
+  font-size: 12px;
+  color: var(--md-on-surface-variant);
+}
+
+/* 新增表單 */
+.addForm {
+  padding: var(--md-space-4) var(--md-space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--md-space-3);
+}
+.addFields {
+  display: grid;
+  grid-template-columns: minmax(220px, 2fr) minmax(140px, 1fr) minmax(180px, 2fr) auto;
+  gap: var(--md-space-3);
+  align-items: end;
+}
+.addButton {
+  min-height: 48px;
+}
+
+@media (max-width: 960px) {
+  .addFields {
+    grid-template-columns: 1fr 1fr;
+  }
+  .urlField,
+  .noteField {
+    grid-column: 1 / -1;
+  }
+}
+
+.breakAll {
+  word-break: break-all;
+}

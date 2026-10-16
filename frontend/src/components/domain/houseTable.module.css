@@ -1,0 +1,93 @@
+.header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--md-space-2);
+  margin-bottom: var(--md-space-4);
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--md-space-6);
+}
+
+.tableWrap {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+
+.table th {
+  position: sticky;
+  top: 0;
+  padding: var(--md-space-3) var(--md-space-4);
+  background: var(--md-surface-container);
+  color: var(--md-on-surface-variant);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.table td {
+  padding: var(--md-space-3) var(--md-space-4);
+  border-top: 1px solid var(--md-outline-variant);
+  vertical-align: top;
+}
+
+.table tbody tr {
+  transition: background var(--md-motion-duration) var(--md-motion-easing);
+}
+
+.table tbody tr:hover {
+  background: var(--md-surface-container-low);
+}
+
+.url {
+  display: inline-block;
+  max-width: 240px;
+  color: var(--md-primary);
+  word-break: break-all;
+}
+
+.rent {
+  font-size: 16px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.note {
+  max-width: 200px;
+  color: var(--md-on-surface-variant);
+}
+
+.statusCell {
+  display: flex;
+  flex-direction: column;
+  gap: var(--md-space-2);
+  min-width: 120px;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--md-space-1);
+  align-items: flex-start;
+}
+
+.empty {
+  padding: var(--md-space-8) var(--md-space-4);
+  text-align: center;
+  color: var(--md-on-surface-variant);
+}
+
+.cardHeader {
+  padding: var(--md-space-4) var(--md-space-6) 0;
+}

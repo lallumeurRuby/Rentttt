@@ -1,0 +1,53 @@
+.page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--md-space-4);
+  background: linear-gradient(160deg, var(--md-primary-container) 0%, var(--md-surface) 55%);
+}
+
+.panel {
+  width: min(400px, 100%);
+  padding: var(--md-space-8) var(--md-space-6);
+  border-radius: var(--md-radius-xl);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--md-space-3);
+  text-align: center;
+  box-shadow: var(--md-elevation-1);
+}
+
+.hero {
+  font-size: 48px;
+  line-height: 1;
+}
+
+.members {
+  list-style: none;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--md-space-3);
+  margin-top: var(--md-space-4);
+}
+
+.memberButton {
+  width: 100%;
+  min-height: 56px;
+  justify-content: flex-start;
+  font-size: 16px;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--md-radius-full);
+  background: var(--md-primary);
+  color: var(--md-on-primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}

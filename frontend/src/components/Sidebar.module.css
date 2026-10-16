@@ -1,0 +1,81 @@
+.rail {
+  width: 112px;
+  flex-shrink: 0;
+  padding: var(--md-space-4) var(--md-space-2);
+  background: var(--md-surface-container-low);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--md-space-6);
+}
+
+.brand {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--md-primary);
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--md-space-3);
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--md-space-1);
+  min-width: 80px;
+  color: var(--md-on-surface-variant);
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 32px;
+  border-radius: var(--md-radius-lg);
+  font-size: 18px;
+  transition: background var(--md-motion-duration) var(--md-motion-easing);
+}
+
+.item:hover .indicator {
+  background: var(--md-surface-container-high);
+}
+
+.item:focus-visible {
+  outline: none;
+}
+
+.item:focus-visible .indicator {
+  outline: 3px solid var(--md-primary);
+}
+
+.active {
+  color: var(--md-on-surface);
+}
+
+.active .indicator {
+  background: var(--md-secondary-container);
+}
+
+.label {
+  white-space: nowrap;
+}
+
+@media (max-width: 840px) {
+  .rail {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: var(--md-space-2) var(--md-space-4);
+  }
+  .nav {
+    flex-direction: row;
+  }
+}

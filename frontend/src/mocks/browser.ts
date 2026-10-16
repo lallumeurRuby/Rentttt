@@ -1,5 +1,5 @@
 import { setupWorker } from 'msw/browser'
-import { http, HttpResponse } from 'msw'
+import { http, HttpResponse, type JsonBodyType } from 'msw'
 import { handlers } from './handlers'
 
 const worker = setupWorker(...handlers)
@@ -21,7 +21,7 @@ export async function initMocks() {
   const overrides = (window as any).__mswOverrides as Array<{
     method: string
     url: string
-    body: unknown
+    body: JsonBodyType
     status: number
     delayMs?: number
   }> | undefined
