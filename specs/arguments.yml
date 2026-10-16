@@ -1,0 +1,65 @@
+# 技術堆疊：Python（FastAPI + SQLAlchemy + Behave）
+# 測試策略：E2E Test（Behave + FastAPI TestClient + PostgreSQL）
+
+# ── 共用 ──────────────────────────────────────────────
+
+# 所有規格產出物的根目錄
+SPECS_ROOT_DIR: specs
+
+# 澄清紀錄目錄（所有 prompt 共用，見 shared/clarify-loop.md）
+CLARIFY_DIR: ${SPECS_ROOT_DIR}/clarify
+
+# 每回合最多提問數（Sub-question 不計入）
+MAX_QUESTIONS_PER_ROUND: 10
+
+# ── discovery 用 ────────────────────────────────────
+
+# Activity 檔案的存放目錄
+ACTIVITIES_DIR: ${SPECS_ROOT_DIR}/activities
+
+# Feature 檔案的存放目錄（已移入後端專案的 Behave 測試目錄）
+FEATURE_SPECS_DIR: backend/tests/features
+
+# api.yml 的存放目錄
+API_SPECS_DIR: ${SPECS_ROOT_DIR}
+
+# erm.dbml 的存放目錄
+ENTITY_SPECS_DIR: ${SPECS_ROOT_DIR}
+
+# ── python automation 共用 ─────────────────────────────
+
+# Python 應用程式根目錄
+PY_APP_DIR: backend/app
+
+# ORM Models
+PY_MODELS_DIR: ${PY_APP_DIR}/models
+
+# Repository 層
+PY_REPOSITORIES_DIR: ${PY_APP_DIR}/repositories
+
+# Service 層
+PY_SERVICES_DIR: ${PY_APP_DIR}/services
+
+# API Endpoints（FastAPI routers）
+PY_API_DIR: ${PY_APP_DIR}/api
+
+# Core（config, dependencies）
+PY_CORE_DIR: ${PY_APP_DIR}/core
+
+# Pydantic Schemas
+PY_SCHEMAS_DIR: ${PY_APP_DIR}/schemas
+
+# FastAPI 主程式
+PY_MAIN_FILE: ${PY_APP_DIR}/main.py
+
+# Behave 測試 Feature 檔案目錄
+PY_TEST_FEATURES_DIR: backend/tests/features
+
+# Step Definitions 目錄
+PY_STEPS_DIR: ${PY_TEST_FEATURES_DIR}/steps
+
+# Behave environment.py
+PY_ENV_FILE: ${PY_TEST_FEATURES_DIR}/environment.py
+
+# Alembic 遷移目錄
+ALEMBIC_VERSIONS_DIR: backend/alembic/versions

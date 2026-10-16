@@ -1,41 +1,31 @@
----
+﻿---
 name: frontend-design
-description: Create distinctive, production-grade frontend interfaces with high design quality. Use this skill when the user asks to build web components, pages, artifacts, posters, or applications (examples include websites, landing pages, dashboards, React components, HTML/CSS layouts, or when styling/beautifying any web UI). Generates creative, polished code and UI design that avoids generic AI aesthetics.
+description: Create production-grade frontend interfaces with Material Design 3 as the default visual style. Use when building web components, pages, applications, or styling and refining web UI.
 ---
 
-This skill guides creation of distinctive, production-grade frontend interfaces that avoid generic "AI slop" aesthetics. Implement real working code with exceptional attention to aesthetic details and creative choices.
-
-The user provides frontend requirements: a component, page, application, or interface to build. They may include context about the purpose, audience, or technical constraints.
+Implement working, polished frontend code using **Material Design 3** as the default visual language. Apply it consistently across the main visual, page layouts, components, and interaction states. An explicit user request for another design style takes precedence.
 
 ## Design Thinking
 
-Before coding, understand the context and commit to a BOLD aesthetic direction:
-- **Purpose**: What problem does this interface solve? Who uses it?
-- **Tone**: Pick an extreme: brutally minimal, maximalist chaos, retro-futuristic, organic/natural, luxury/refined, playful/toy-like, editorial/magazine, brutalist/raw, art deco/geometric, soft/pastel, industrial/utilitarian, etc. There are so many flavors to choose from. Use these for inspiration but design one that is true to the aesthetic direction.
-- **Constraints**: Technical requirements (framework, performance, accessibility).
-- **Differentiation**: What makes this UNFORGETTABLE? What's the one thing someone will remember?
+Before coding, understand the page's purpose, audience, content hierarchy, and technical constraints. Express the product's identity through its brand color, imagery, and content while keeping a coherent Material Design 3 foundation.
 
-**CRITICAL**: Choose a clear conceptual direction and execute it with precision. Bold maximalism and refined minimalism both work - the key is intentionality, not intensity.
+Inspect existing components, theme configuration, and design tokens first. Reuse the project's framework and component library; adopting Material styling does not by itself require installing or replacing a UI library.
 
-Then implement working code (HTML/CSS/JS, React, Vue, etc.) that is:
-- Production-grade and functional
-- Visually striking and memorable
-- Cohesive with a clear aesthetic point-of-view
-- Meticulously refined in every detail
+## Material Design 3 Guidelines
 
-## Frontend Aesthetics Guidelines
+- **Color & Theme**: Define semantic CSS variables or theme tokens for primary, secondary, tertiary, surface, surface-container, outline, and error roles, with corresponding on-colors for readable foregrounds. Derive a cohesive tonal palette from the brand color. When dark mode is required, map the same semantic roles to dark-theme values instead of simply inverting colors.
+- **Typography**: Use a consistent type scale with display, headline, title, body, and label roles. Roboto is allowed; use suitable CJK fonts such as Noto Sans TC for Traditional Chinese and provide readable fallbacks. Prioritize legibility and hierarchy over decorative font pairings.
+- **Shape & Elevation**: Define reusable corner-radius and elevation tokens. Use surface tones and restrained shadows to distinguish layers; apply shape consistently by component role.
+- **Layout & Main Visual**: Use clear alignment, responsive grids, consistent spacing, and generous breathing room. Give the hero a clear headline, supporting content, and a primary action. Brand imagery or illustration should reinforce the message and preserve text contrast.
+- **Components**: Follow Material 3 component anatomy and hierarchy for buttons, cards, text fields, chips, dialogs, and navigation. Distinguish primary, secondary, and tertiary actions through consistent variants. Keep equivalent components visually consistent across pages.
+- **Interaction States**: Provide default, hover, focus-visible, pressed, selected, disabled, and error states where applicable. Use state layers and visible keyboard focus. Show validation and loading feedback clearly.
+- **Motion**: Use purposeful transitions to explain state changes and maintain continuity. Keep motion restrained, use consistent duration and easing tokens, and respect prefers-reduced-motion.
+- **Accessibility**: Maintain readable contrast, semantic markup, keyboard operation, and accessible labels. Aim for 48 by 48 CSS-pixel touch targets for primary touch interactions.
 
-Focus on:
-- **Typography**: Choose fonts that are beautiful, unique, and interesting. Avoid generic fonts like Arial and Inter; opt instead for distinctive choices that elevate the frontend's aesthetics; unexpected, characterful font choices. Pair a distinctive display font with a refined body font.
-- **Color & Theme**: Commit to a cohesive aesthetic. Use CSS variables for consistency. Dominant colors with sharp accents outperform timid, evenly-distributed palettes.
-- **Motion**: Use animations for effects and micro-interactions. Prioritize CSS-only solutions for HTML. Use Motion library for React when available. Focus on high-impact moments: one well-orchestrated page load with staggered reveals (animation-delay) creates more delight than scattered micro-interactions. Use scroll-triggering and hover states that surprise.
-- **Spatial Composition**: Unexpected layouts. Asymmetry. Overlap. Diagonal flow. Grid-breaking elements. Generous negative space OR controlled density.
-- **Backgrounds & Visual Details**: Create atmosphere and depth rather than defaulting to solid colors. Add contextual effects and textures that match the overall aesthetic. Apply creative forms like gradient meshes, noise textures, geometric patterns, layered transparencies, dramatic shadows, decorative borders, custom cursors, and grain overlays.
+Avoid arbitrary gradients, decorative noise, exaggerated shadows, and grid-breaking layouts unless the user's brief calls for them. Do not prohibit standard fonts or familiar component patterns when they support Material consistency and usability.
 
-NEVER use generic AI-generated aesthetics like overused font families (Inter, Roboto, Arial, system fonts), cliched color schemes (particularly purple gradients on white backgrounds), predictable layouts and component patterns, and cookie-cutter design that lacks context-specific character.
+## Implementation & Review
 
-Interpret creatively and make unexpected choices that feel genuinely designed for the context. No design should be the same. Vary between light and dark themes, different fonts, different aesthetics. NEVER converge on common choices (Space Grotesk, for example) across generations.
+Build functional HTML/CSS/JS, React, Vue, or the project's existing stack. Centralize shared visual values in tokens rather than scattering hardcoded colors, radii, shadows, and spacing throughout components.
 
-**IMPORTANT**: Match implementation complexity to the aesthetic vision. Maximalist designs need elaborate code with extensive animations and effects. Minimalist or refined designs need restraint, precision, and careful attention to spacing, typography, and subtle details. Elegance comes from executing the vision well.
-
-Remember: Claude is capable of extraordinary creative work. Don't hold back, show what can truly be created when thinking outside the box and committing fully to a distinctive vision.
+Review the result for consistent color roles, typography, spacing, shapes, action hierarchy, responsive behavior, and interaction states. Preserve the requested functionality and existing accessibility behavior when restyling.
