@@ -1,18 +1,19 @@
 'use client'
 
 import { FormEvent, useEffect, useRef, useState } from 'react'
-import type { HouseListItem } from '@/lib/types'
+import type { HouseListItem, UpdateHouseRequest } from '@/lib/types'
 import styles from './domain.module.css'
 
-interface EditRentDialogProps {
+interface EditHouseDialogProps {
   house: HouseListItem
-  onSave: (totalRent: number) => Promise<boolean>
+  onSave: (request: UpdateHouseRequest) => Promise<boolean>
   onClose: () => void
 }
 
-/** 編輯房屋彈窗：網址（不可編輯）、總租金（可編輯）、備註（不可編輯） */
-export function EditRentDialog({ house, onSave, onClose }: EditRentDialogProps) {
+/** 編輯房屋彈窗：網址（不可編輯）、總租金（必填）、備註（可留空，留空即清空），一次儲存 */
+export function EditHouseDialog({ house, onSave, onClose }: EditHouseDialogProps) {
   const [totalRent, setTotalRent] = useState(String(house.totalRent))
+  const [note, setNote] = useState(house.note)
   const [error, setError] = useState<string | null>(null)
   const [saving, setSaving] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
@@ -32,7 +33,7 @@ export function EditRentDialog({ house, onSave, onClose }: EditRentDialogProps) 
       return
     }
     setSaving(true)
-    const saved = await onSave(rent)
+    const saved = await onSave({ totalRent: rent, note: note.trim() })
     setSaving(false)
     if (saved) onClose()
   }
@@ -43,13 +44,13 @@ export function EditRentDialog({ house, onSave, onClose }: EditRentDialogProps) 
         className="dialog"
         role="dialog"
         aria-modal="true"
-        aria-labelledby="edit-rent-title"
+        aria-labelledby="edit-house-title"
         onClick={(e) => e.stopPropagation()}
         onSubmit={handleSubmit}
         noValidate
-        data-testid="edit-rent-dialog"
+        data-testid="edit-house-dialog"
       >
-        <h2 id="edit-rent-title" className="headline-small">
+        <h2 id="edit-house-title" className="headline-small">
           編輯房屋
         </h2>
         <label className="field">
@@ -57,7 +58,7 @@ export function EditRentDialog({ house, onSave, onClose }: EditRentDialogProps) 
           <input className="input" value={house.url} readOnly disabled data-testid="edit-url" />
         </label>
         <label className="field">
-          <span className="field-label">總租金（元）</span>
+          <span className="field-label">總租金（元）*</span>
           <input
             ref={inputRef}
             className="input"
@@ -72,8 +73,15 @@ export function EditRentDialog({ house, onSave, onClose }: EditRentDialogProps) 
           {error && <span className="field-error">{error}</span>}
         </label>
         <label className="field">
-          <span className="field-label">備註（不可編輯）</span>
-          <input className="input" value={house.note} readOnly disabled data-testid="edit-note" />
+          <span className="field-label">備註</span>
+          <input
+            className="input"
+            type="text"
+            value={note}
+            onChange={(e) => setNote(e.target.value)}
+            placeholder="可留空"
+            data-testid="edit-note"
+          />
         </label>
         <div className="dialog-actions">
           <button type="button" className="btn btn-text" onClick={onClose}>
@@ -88,7 +96,7 @@ export function EditRentDialog({ house, onSave, onClose }: EditRentDialogProps) 
             {saving ? '儲存中…' : '儲存'}
           </button>
         </div>
-        <span className={styles.hint}>只有總租金可以修改。</span>
+        <span className={styles.hint}>網址不可修改；備註留空會清除原本的備註。</span>
       </form>
     </div>
   )

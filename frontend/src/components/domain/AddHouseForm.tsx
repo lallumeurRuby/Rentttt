@@ -6,7 +6,8 @@ import styles from './domain.module.css'
 export interface AddHouseValues {
   url: string
   totalRent: number
-  note: string
+  /** 選填；留空時不送出（後端存空白） */
+  note?: string
 }
 
 interface AddHouseFormProps {
@@ -21,7 +22,7 @@ export function AddHouseForm({ onSubmit }: AddHouseFormProps) {
   const [rentError, setRentError] = useState<string | null>(null)
   const [submitting, setSubmitting] = useState(false)
 
-  const isComplete = url.trim() !== '' && totalRent.trim() !== '' && note.trim() !== ''
+  const isComplete = url.trim() !== '' && totalRent.trim() !== ''
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault()
@@ -32,7 +33,12 @@ export function AddHouseForm({ onSubmit }: AddHouseFormProps) {
     }
     setRentError(null)
     setSubmitting(true)
-    const created = await onSubmit({ url: url.trim(), totalRent: rent, note: note.trim() })
+    const trimmedNote = note.trim()
+    const created = await onSubmit({
+      url: url.trim(),
+      totalRent: rent,
+      ...(trimmedNote ? { note: trimmedNote } : {}),
+    })
     setSubmitting(false)
     if (created) {
       setUrl('')
@@ -82,7 +88,7 @@ export function AddHouseForm({ onSubmit }: AddHouseFormProps) {
           )}
         </label>
         <label className={`field ${styles.noteField}`}>
-          <span className="field-label">備註 *</span>
+          <span className="field-label">備註</span>
           <input
             className="input"
             type="text"
@@ -100,7 +106,7 @@ export function AddHouseForm({ onSubmit }: AddHouseFormProps) {
           {submitting ? '新增中…' : '＋ 新增'}
         </button>
       </div>
-      <p className="body-medium">網址與備註新增後不可修改，只有總租金可以編輯。</p>
+      <p className="body-medium">網址新增後不可修改；總租金與備註之後可在編輯中修改，備註可留空。</p>
     </form>
   )
 }

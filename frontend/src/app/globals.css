@@ -209,6 +209,13 @@ body {
   border: 2px solid var(--md-primary);
   padding: 0 calc(var(--md-space-4) - 1px);
 }
+.input:disabled,
+.select:disabled {
+  border-color: var(--md-outline-variant);
+  background: var(--md-surface-container);
+  color: var(--md-on-surface-variant);
+  cursor: not-allowed;
+}
 .input[aria-invalid='true'] {
   border: 2px solid var(--md-error);
 }

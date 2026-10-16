@@ -84,7 +84,7 @@ export default function ConsideredPage() {
                       </a>
                     </td>
                     <td className={styles.rent}>{house.totalRent.toLocaleString()}</td>
-                    <td className={styles.note}>{house.note}</td>
+                    <td className={styles.note}>{house.note || <span className={styles.noteEmpty}>—</span>}</td>
                     <td>
                       <RentSplitCell splits={house.rentSplits} />
                     </td>

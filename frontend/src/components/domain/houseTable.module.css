@@ -68,6 +68,10 @@
   color: var(--md-on-surface-variant);
 }
 
+.noteEmpty {
+  color: var(--md-outline);
+}
+
 .statusCell {
   display: flex;
   flex-direction: column;

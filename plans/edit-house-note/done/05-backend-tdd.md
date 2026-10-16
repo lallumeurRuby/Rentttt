@@ -2,8 +2,8 @@
 
 ## 審查進度
 
-- [ ] 05.1 相關規格已審查 — **簽名**: ___
-- [ ] 05.2 交付物已審查 — **簽名**: ___
+- [x] 05.1 相關規格已審查 — **簽名**: 2026-10-16 15:00
+- [x] 05.2 交付物已審查 — **簽名**: 2026-10-16 15:00
 
 ## 目的 (What)
 
@@ -67,13 +67,13 @@ carry-on Step 05.2 觸發時：
 
 | # | 交付物 | 路徑 | 狀態 |
 |---|--------|------|------|
-| 05.1 | Step Definitions | `C:/Users/retailingdata/Desktop/ruby/Rentttt/backend/tests/features/steps/` | PENDING |
-| 05.2 | Domain Models | `C:/Users/retailingdata/Desktop/ruby/Rentttt/backend/app/models/` | PENDING |
-| 05.3 | API Endpoints | `C:/Users/retailingdata/Desktop/ruby/Rentttt/backend/app/api/` | PENDING |
-| 05.4 | DB Migrations | `C:/Users/retailingdata/Desktop/ruby/Rentttt/backend/alembic/versions/` | PENDING |
-| 05.5 | 回歸測試結果 | 回歸測試全通過 | PENDING |
+| 05.1 | Step Definitions | `C:/Users/retailingdata/Desktop/ruby/Rentttt/backend/tests/features/steps/` | DONE |
+| 05.2 | Domain Models | `C:/Users/retailingdata/Desktop/ruby/Rentttt/backend/app/models/` | DONE |
+| 05.3 | API Endpoints | `C:/Users/retailingdata/Desktop/ruby/Rentttt/backend/app/api/` | DONE |
+| 05.4 | DB Migrations | `C:/Users/retailingdata/Desktop/ruby/Rentttt/backend/alembic/versions/` | DONE |
+| 05.5 | 回歸測試結果 | 回歸測試全通過 | DONE |
 
 ### 驗收點
 
-- [ ] 所有 .feature × 3 phase 任務 completed
-- [ ] 回歸測試全數通過（零失敗）
+- [x] 所有 .feature × 3 phase 任務 completed
+- [x] 回歸測試全數通過（零失敗）

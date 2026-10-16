@@ -6,7 +6,7 @@ import {
   createHouse,
   deleteHouse,
   listHouses,
-  updateHouseTotalRent,
+  updateHouse,
   updateLandlordStatus,
   updateViewingStatus,
 } from '@/lib/api'
@@ -22,7 +22,7 @@ import { useApiFeedback } from '@/lib/useApiFeedback'
 import { Toast } from '@/components/Toast'
 import { AddHouseForm, type AddHouseValues } from '@/components/domain/AddHouseForm'
 import { ConfirmDeleteDialog } from '@/components/domain/ConfirmDeleteDialog'
-import { EditRentDialog } from '@/components/domain/EditRentDialog'
+import { EditHouseDialog } from '@/components/domain/EditHouseDialog'
 import { RentSplitCell } from '@/components/domain/RentSplitCell'
 import { StatusSelect } from '@/components/domain/StatusSelect'
 import { VoteCell } from '@/components/domain/VoteCell'
@@ -120,7 +120,7 @@ export default function HousesPage() {
                         </a>
                       </td>
                       <td className={styles.rent}>{house.totalRent.toLocaleString()}</td>
-                      <td className={styles.note}>{house.note}</td>
+                      <td className={styles.note}>{house.note || <span className={styles.noteEmpty}>—</span>}</td>
                       <td>
                         <RentSplitCell splits={house.rentSplits} />
                       </td>
@@ -198,11 +198,11 @@ export default function HousesPage() {
       </section>
 
       {editing && (
-        <EditRentDialog
+        <EditHouseDialog
           house={editing}
           onClose={() => setEditing(null)}
-          onSave={(totalRent) =>
-            runAction(editing.id, () => updateHouseTotalRent(editing.id, totalRent), '已更新總租金')
+          onSave={(request) =>
+            runAction(editing.id, () => updateHouse(editing.id, request), '已更新房屋')
           }
         />
       )}

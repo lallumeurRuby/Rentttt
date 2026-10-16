@@ -32,18 +32,18 @@ export const houseHandlers = [
     return ok(consideredHouses(viewer))
   }),
 
-  // POST /houses — 401 / 400 必要參數未提供・總租金必須為正整數 / 422 網址已存在
+  // POST /houses — 401 / 400 必要參數未提供・總租金必須為正整數 / 422 網址已存在（備註選填）
   http.post('/api/houses', async ({ request }) => {
     if (!viewerOf(request)) return fail('請先登入', 401)
     const { url, totalRent, note } = await readBody(request)
-    if ([url, totalRent, note].some(isMissing)) return fail('必要參數未提供', 400)
+    if ([url, totalRent].some(isMissing)) return fail('必要參數未提供', 400)
     if (!isPositiveInteger(totalRent)) return fail('總租金必須為正整數', 400)
     if (db.houses.some((h) => h.url === url)) return fail('網址已存在', 422)
     const house = {
       id: db.nextHouseId++,
       url: String(url),
       totalRent,
-      note: String(note),
+      note: note == null ? '' : String(note),
       landlordStatus: '待聯絡' as const,
       viewingStatus: '未開始' as const,
       createdAt: new Date().toISOString(),
@@ -62,15 +62,16 @@ export const houseHandlers = [
     return ok()
   }),
 
-  // PUT /houses/{houseId}/total-rent — 401 / 404 / 400
-  http.put('/api/houses/:houseId/total-rent', async ({ request, params }) => {
+  // PUT /houses/{houseId} — 401 / 404 / 400；總租金必填、備註選填（未提供或空字串即清空）
+  http.put('/api/houses/:houseId', async ({ request, params }) => {
     if (!viewerOf(request)) return fail('請先登入', 401)
     const house = findHouse(params.houseId)
     if (!house) return fail('房屋不存在', 404)
-    const { totalRent } = await readBody(request)
+    const { totalRent, note } = await readBody(request)
     if (isMissing(totalRent)) return fail('必要參數未提供', 400)
     if (!isPositiveInteger(totalRent)) return fail('總租金必須為正整數', 400)
     house.totalRent = totalRent
+    house.note = note == null ? '' : String(note)
     return ok()
   }),
 

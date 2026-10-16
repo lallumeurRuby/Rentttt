@@ -7,6 +7,7 @@ import {
   type CreateHouseRequest,
   type House,
   type HouseListItem,
+  type UpdateHouseRequest,
   type LandlordStatus,
   type ViewingStatus,
   type VoteChoice,
@@ -38,11 +39,11 @@ export async function deleteHouse(houseId: number): Promise<void> {
   await apiClient<unknown>(`/houses/${houseId}`, { method: 'DELETE' })
 }
 
-/** PUT /houses/{houseId}/total-rent */
-export async function updateHouseTotalRent(houseId: number, totalRent: number): Promise<void> {
-  await apiClient<unknown>(`/houses/${houseId}/total-rent`, {
+/** PUT /houses/{houseId} — 一次修改總租金與備註（備註空字串即清空） */
+export async function updateHouse(houseId: number, request: UpdateHouseRequest): Promise<void> {
+  await apiClient<unknown>(`/houses/${houseId}`, {
     method: 'PUT',
-    body: JSON.stringify({ totalRent }),
+    body: JSON.stringify(request),
   })
 }
 

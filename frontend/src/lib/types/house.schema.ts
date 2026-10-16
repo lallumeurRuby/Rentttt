@@ -41,12 +41,17 @@ export type HouseListItem = z.infer<typeof HouseListItemSchema>
 export const CreateHouseRequestSchema = z.object({
   url: z.string(),
   totalRent: z.number().int().min(1),
-  note: z.string(),
+  /** 選填；未提供時存為空字串 */
+  note: z.string().optional(),
 })
 export type CreateHouseRequest = z.infer<typeof CreateHouseRequestSchema>
 
-export const UpdateTotalRentRequestSchema = z.object({ totalRent: z.number().int().min(1) })
-export type UpdateTotalRentRequest = z.infer<typeof UpdateTotalRentRequestSchema>
+export const UpdateHouseRequestSchema = z.object({
+  totalRent: z.number().int().min(1),
+  /** 選填；未提供或空字串即清空備註 */
+  note: z.string().optional(),
+})
+export type UpdateHouseRequest = z.infer<typeof UpdateHouseRequestSchema>
 
 export const CastVoteRequestSchema = z.object({ choice: VoteChoiceSchema })
 export type CastVoteRequest = z.infer<typeof CastVoteRequestSchema>
