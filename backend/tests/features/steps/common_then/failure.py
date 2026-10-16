@@ -7,6 +7,6 @@ def step_then_failure_with_violation(context, violation_type):
     resp = context.last_response.json()
     assert resp.get("success") is False, f"Expected success=false, got {resp}"
     actual_type = resp.get("error", {}).get("violation_type")
-    assert actual_type == violation_type, (
-        f"Expected violation_type='{violation_type}', got '{actual_type}'"
-    )
+    assert (
+        actual_type == violation_type
+    ), f"Expected violation_type='{violation_type}', got '{actual_type}'"

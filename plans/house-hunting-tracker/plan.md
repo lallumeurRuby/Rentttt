@@ -15,8 +15,8 @@
 | 01 | Requirement Analysis（需求分析 + 影響評估 + 行為設計） | — | done |
 | 02 | Entity Modeling（外部品質 — 資料） | 01 | done |
 | 03 | BDD Analysis（外部品質 — 可執行規格） | 02 | done |
-| 04 | API Contract（內部品質） | 03 | todo |
-| 05 | Backend TDD Track | 04 | todo |
+| 04 | API Contract（內部品質） | 03 | done |
+| 05 | Backend TDD Track | 04 | done |
 | 06 | Frontend Build Track | 04 | todo |
 | 07 | Integration Validation | 05, 06 | todo |
 
@@ -156,5 +156,13 @@ IMPL_IMPACT：Greenfield，無（全部 NEW_OPERATION）。
 | create | member/句型.md、house/句型.md | 句型清單 + QA 五維分析 + 覆蓋矩陣 |
 | create | 10 個 .feature 的 Examples | 86 個 scenario（含 Outline 展開），移除 @ignore |
 | modify | 5 個 house feature 的前置（參數）Rule | Q19：移除「房屋必須指定」 |
+
+IMPL_IMPACT：Greenfield，無（全部 NEW_OPERATION）。
+
+### Phase 04 Change Summary（api.yml）
+| 操作 | 目標 | 說明 |
+|------|------|------|
+| create | 10 endpoints | GET /members、POST /auth/login、GET·POST /houses、GET /houses/considered、DELETE /houses/{id}、PUT /houses/{id}/total-rent·my-vote·landlord-status·viewing-status |
+| create | shared schemas | Success/Error envelope、Error.violation_type enum（8 種中文訊息）、bearerAuth JWT |
 
 IMPL_IMPACT：Greenfield，無（全部 NEW_OPERATION）。

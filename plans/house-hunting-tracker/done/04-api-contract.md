@@ -2,8 +2,8 @@
 
 ## 審查進度
 
-- [ ] 04.1 相關規格已審查 — **簽名**: ___
-- [ ] 04.2 交付物已審查 — **簽名**: ___
+- [x] 04.1 相關規格已審查 — **簽名**: 2026-10-16 12:26
+- [x] 04.2 交付物已審查 — **簽名**: 2026-10-16 12:26
 
 ## 目的 (What)
 
@@ -44,13 +44,13 @@ carry-on Step 04.2 觸發時：
 
 | # | 交付物 | 路徑 | 狀態 |
 |---|--------|------|------|
-| 04.1 | api.yml | `C:/Users/retailingdata/Desktop/ruby/Rentttt/specs/api.yml` | PENDING |
-| 04.2 | 澄清紀錄 | `C:/Users/retailingdata/Desktop/ruby/Rentttt/specs/clarify/` | PENDING |
+| 04.1 | api.yml | `C:/Users/retailingdata/Desktop/ruby/Rentttt/specs/api.yml` | DONE |
+| 04.2 | 澄清紀錄 | `C:/Users/retailingdata/Desktop/ruby/Rentttt/specs/clarify/` | DONE |
 
 ### 驗收點
 
-- [ ] api.yml 已產出
-- [ ] Grep `CiC\(` 掃描 `api/api.yml` 結果為空
-- [ ] 每個 Feature 的 command/query 都有對應的 API endpoint
-- [ ] Request/Response schema 與 erm.dbml 欄位一致
-- [ ] Response envelope 格式統一（`{ success, data/error }`）
+- [x] api.yml 已產出
+- [x] Grep `CiC\(` 掃描 `api/api.yml` 結果為空
+- [x] 每個 Feature 的 command/query 都有對應的 API endpoint
+- [x] Request/Response schema 與 erm.dbml 欄位一致
+- [x] Response envelope 格式統一（`{ success, data/error }`）
