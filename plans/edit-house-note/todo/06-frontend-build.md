@@ -26,7 +26,7 @@
 |---|------|------|------|
 | 1 | api.yml | Phase 04 交付 | API 契約 — MSW handlers 的生成依據 |
 | 2 | Activity Diagrams | Phase 01 交付 | 流程結構（路線、分支）— 頁面導航的依據 |
-| 3 | UI Specs（若有） | Phase 01 交付 | `specs/specs/ui/*.md` |
+| 3 | UI Specs（若有） | Phase 01 交付 | `C:/Users/retailingdata/Desktop/ruby/Rentttt/specs/ui/*.md` |
 
 ## 交付物
 
@@ -57,9 +57,9 @@ carry-on Step 06.2 觸發時：
 
 | # | 交付物 | 路徑 | 狀態 |
 |---|--------|------|------|
-| 06.1 | Frontend 骨架 | `C:\Users\retailingdata\Desktop\ruby\Rentttt/frontend/` | PENDING |
-| 06.2 | MSW Handlers | `C:\Users\retailingdata\Desktop\ruby\Rentttt/frontend/src/mocks/handlers/` | PENDING |
-| 06.3 | Pages | `C:\Users\retailingdata\Desktop\ruby\Rentttt/frontend/src/pages/` | PENDING |
+| 06.1 | Frontend 骨架 | `C:/Users/retailingdata/Desktop/ruby/Rentttt/frontend/` | PENDING |
+| 06.2 | MSW Handlers | `C:/Users/retailingdata/Desktop/ruby/Rentttt/frontend/src/mocks/handlers/` | PENDING |
+| 06.3 | Pages | `C:/Users/retailingdata/Desktop/ruby/Rentttt/frontend/src/app/` | PENDING |
 
 ### 驗收點
 
@@ -85,7 +85,7 @@ carry-on Step 06.2 觸發時：
 #### 2. 啟動 dev server
 
 ```bash
-cd C:\Users\retailingdata\Desktop\ruby\Rentttt/frontend && npm run dev &
+cd C:/Users/retailingdata/Desktop/ruby/Rentttt/frontend && npm run dev &
 ```
 
 背景執行，等待 server ready。

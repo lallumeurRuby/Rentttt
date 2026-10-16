@@ -1,6 +1,6 @@
 # 工程計畫：edit-house-note
 
-> **狀態**: DRAFT
+> **狀態**: IN_PROGRESS
 > **建立日期**: 2026-10-16
 > **最後更新**: 2026-10-16
 > **技術棧**: python (e2e)
@@ -12,7 +12,7 @@
 
 | Phase | Name | Depends On | 狀態 |
 |-------|------|------------|------|
-| 01 | Requirement Analysis（需求分析 + 影響評估 + 行為設計） | — | todo |
+| 01 | Requirement Analysis（需求分析 + 影響評估 + 行為設計） | — | done |
 | 02 | Entity Modeling（外部品質 — 資料） | 01 | todo |
 | 03 | BDD Analysis（外部品質 — 可執行規格） | 02 | todo |
 | 04 | API Contract（內部品質） | 03 | todo |
@@ -67,11 +67,11 @@ Phase 01-04 的產出物是 Phase 05-07 的共同依據（Single Source of Truth
 
 | 產物 | 路徑 | 消費者 |
 |------|------|--------|
-| Execution Plan | `plans/edit-house-note/plan.md` | Phase 02-07（scope 依據） |
-| Activity Diagrams | `specs/activities/` | Phase 06（Chrome Test Guard 測試計畫結構） |
-| Feature Files（含 Examples） | `specs/features/` | Phase 05（TDD 循環） |
-| erm.dbml | `specs/entity/erm.dbml` | Phase 05（Schema Analysis） |
-| api.yml | `specs/api/api.yml` | Phase 05（Red 欄位守衛）、Phase 06（MSW handlers）、Phase 07（驗證基準） |
+| Execution Plan | `C:/Users/retailingdata/Desktop/ruby/Rentttt/plans/edit-house-note/plan.md` | Phase 02-07（scope 依據） |
+| Activity Diagrams | `C:/Users/retailingdata/Desktop/ruby/Rentttt/specs/activities/` | Phase 06（Chrome Test Guard 測試計畫結構） |
+| Feature Files（含 Examples） | `C:/Users/retailingdata/Desktop/ruby/Rentttt/backend/tests/features/` | Phase 05（TDD 循環） |
+| erm.dbml | `C:/Users/retailingdata/Desktop/ruby/Rentttt/specs/erm.dbml` | Phase 05（Schema Analysis） |
+| api.yml | `C:/Users/retailingdata/Desktop/ruby/Rentttt/specs/api.yml` | Phase 05（Red 欄位守衛）、Phase 06（MSW handlers）、Phase 07（驗證基準） |
 
 ## Context Management
 
@@ -79,3 +79,9 @@ Phase 01-04 的產出物是 Phase 05-07 的共同依據（Single Source of Truth
 - Compact Proof 層次化：specformula 16 任務 / 各 Phase 內部自管細節
 - Lazy Loading：每個 Phase 只載入當前 skill，跨 skill 必定重新 LOAD
 - 詳見 skill `references/context-management.md`
+
+---
+
+# Execution Plan
+
+見 `C:/Users/retailingdata/Desktop/ruby/Rentttt/plans/edit-house-note/execution-plan.md`（Phase 01 Discovery 產出，CHANGE 模式）。

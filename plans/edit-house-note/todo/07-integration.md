@@ -34,18 +34,17 @@ carry-on Step 07.2 觸發時：
 ### 1. 啟動後端
 
 ```bash
-# 方式 A: Docker
-docker-compose up -d
-
-# 方式 B: venv
-source venv/bin/activate && uvicorn app.main:app --port 8000
+cd C:/Users/retailingdata/Desktop/ruby/Rentttt/backend
+docker compose up -d   # 只啟動 PostgreSQL（5434）；或在 backend/.env 指向 Supabase
+.venv/Scripts/python.exe -m alembic upgrade head
+.venv/Scripts/uvicorn.exe app.main:app --port 8000
 ```
 
 健康檢查：`curl http://localhost:8000/health`
 
 ### 2. 前端環境切換
 
-修改 `C:\Users\retailingdata\Desktop\ruby\Rentttt/frontend/.env.development`：
+修改 `C:/Users/retailingdata/Desktop/ruby/Rentttt/frontend/.env.development`：
 ```
 NEXT_PUBLIC_MOCK_API=false
 BACKEND_URL=http://localhost:8000

@@ -67,10 +67,10 @@ carry-on Step 05.2 觸發時：
 
 | # | 交付物 | 路徑 | 狀態 |
 |---|--------|------|------|
-| 05.1 | Step Definitions | `C:\Users\retailingdata\Desktop\ruby\Rentttt/features/steps/` | PENDING |
-| 05.2 | Domain Models | `C:\Users\retailingdata\Desktop\ruby\Rentttt/app/models/` | PENDING |
-| 05.3 | API Endpoints | `C:\Users\retailingdata\Desktop\ruby\Rentttt/app/api/` | PENDING |
-| 05.4 | DB Migrations | `C:\Users\retailingdata\Desktop\ruby\Rentttt/alembic/versions/` | PENDING |
+| 05.1 | Step Definitions | `C:/Users/retailingdata/Desktop/ruby/Rentttt/backend/tests/features/steps/` | PENDING |
+| 05.2 | Domain Models | `C:/Users/retailingdata/Desktop/ruby/Rentttt/backend/app/models/` | PENDING |
+| 05.3 | API Endpoints | `C:/Users/retailingdata/Desktop/ruby/Rentttt/backend/app/api/` | PENDING |
+| 05.4 | DB Migrations | `C:/Users/retailingdata/Desktop/ruby/Rentttt/backend/alembic/versions/` | PENDING |
 | 05.5 | 回歸測試結果 | 回歸測試全通過 | PENDING |
 
 ### 驗收點

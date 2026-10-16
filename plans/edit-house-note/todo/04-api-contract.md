@@ -35,17 +35,17 @@
 carry-on Step 04.2 觸發時：
 
 1. **DELEGATE `/aibdd-form-api-spec`**，傳入：
-   - Feature Files 路徑（`specs/features/`）
-   - erm.dbml 路徑（`specs/entity/erm.dbml`）
-   - 輸出路徑（`specs/api/api.yml`）
+   - Feature Files 路徑（`C:/Users/retailingdata/Desktop/ruby/Rentttt/backend/tests/features/`）
+   - erm.dbml 路徑（`C:/Users/retailingdata/Desktop/ruby/Rentttt/specs/erm.dbml`）
+   - 輸出路徑（`C:/Users/retailingdata/Desktop/ruby/Rentttt/specs/api.yml`）
    - Execution Plan scope（Phase 04 區段）
 2. api-spec 以 Reconciler 6 步執行：Derive Desired → Read Current → Compute Diff → Preview → Apply with Clarify → Output
 3. 產出 api.yml 後回傳控制權
 
 | # | 交付物 | 路徑 | 狀態 |
 |---|--------|------|------|
-| 04.1 | api.yml | `specs/api/api.yml` | PENDING |
-| 04.2 | 澄清紀錄 | `specs/clarify/` | PENDING |
+| 04.1 | api.yml | `C:/Users/retailingdata/Desktop/ruby/Rentttt/specs/api.yml` | PENDING |
+| 04.2 | 澄清紀錄 | `C:/Users/retailingdata/Desktop/ruby/Rentttt/specs/clarify/` | PENDING |
 
 ### 驗收點
 

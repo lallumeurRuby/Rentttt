@@ -28,17 +28,17 @@
 carry-on Step 02.2 觸發時：
 
 1. **DELEGATE `/aibdd-form-entity-spec`**，傳入：
-   - Feature Files 路徑（`specs/features/`）
-   - Activity Diagrams 路徑（`specs/activities/`）
-   - 輸出路徑（`specs/entity/erm.dbml`）
+   - Feature Files 路徑（`C:/Users/retailingdata/Desktop/ruby/Rentttt/backend/tests/features/`）
+   - Activity Diagrams 路徑（`C:/Users/retailingdata/Desktop/ruby/Rentttt/specs/activities/`）
+   - 輸出路徑（`C:/Users/retailingdata/Desktop/ruby/Rentttt/specs/erm.dbml`）
    - Execution Plan scope（Phase 02 區段）
 2. entity-spec 以 Reconciler 6 步執行：Derive Desired → Read Current → Compute Diff → Preview → Apply with Clarify → Output
 3. 產出 erm.dbml 後回傳控制權
 
 | # | 交付物 | 路徑 | 狀態 |
 |---|--------|------|------|
-| 02.1 | erm.dbml | `specs/entity/erm.dbml` | PENDING |
-| 02.2 | 澄清紀錄 | `specs/clarify/` | PENDING |
+| 02.1 | erm.dbml | `C:/Users/retailingdata/Desktop/ruby/Rentttt/specs/erm.dbml` | PENDING |
+| 02.2 | 澄清紀錄 | `C:/Users/retailingdata/Desktop/ruby/Rentttt/specs/clarify/` | PENDING |
 
 ### 驗收點
 

@@ -35,8 +35,8 @@
 carry-on Step 03.2 觸發時：
 
 1. **DELEGATE `/aibdd-form-bdd-analysis`**，傳入：
-   - features 資料夾路徑（`specs/features/`）
-   - 澄清紀錄路徑（`specs/clarify/`）
+   - features 資料夾路徑（`C:/Users/retailingdata/Desktop/ruby/Rentttt/backend/tests/features/`）
+   - 澄清紀錄路徑（`C:/Users/retailingdata/Desktop/ruby/Rentttt/specs/clarify/`）
    - Execution Plan scope（Phase 03 區段）
 2. bdd-analysis 以 Reconciler 模式依序執行三階段（每層各自 reconcile）：
    - **系統抽象推導** → 展示並等待使用者審核
@@ -46,9 +46,9 @@ carry-on Step 03.2 觸發時：
 
 | # | 交付物 | 路徑 | 狀態 |
 |---|--------|------|------|
-| 03.1 | 系統抽象 | `specs/features/系統抽象.md` | PENDING |
-| 03.2 | 句型模型 | `specs/features/{domain}/句型.md` | PENDING |
-| 03.3 | Feature Files（含 Examples） | `specs/features/**/*.feature` | PENDING |
+| 03.1 | 系統抽象 | `C:/Users/retailingdata/Desktop/ruby/Rentttt/backend/tests/features/系統抽象.md` | PENDING |
+| 03.2 | 句型模型 | `C:/Users/retailingdata/Desktop/ruby/Rentttt/backend/tests/features/{domain}/句型.md` | PENDING |
+| 03.3 | Feature Files（含 Examples） | `C:/Users/retailingdata/Desktop/ruby/Rentttt/backend/tests/features/**/*.feature` | PENDING |
 
 ### 驗收點
 
