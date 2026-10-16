@@ -1,6 +1,6 @@
 # 工程計畫：edit-house-note
 
-> **狀態**: IN_PROGRESS
+> **狀態**: COMPLETED
 > **建立日期**: 2026-10-16
 > **最後更新**: 2026-10-16
 > **技術棧**: python (e2e)
@@ -17,8 +17,8 @@
 | 03 | BDD Analysis（外部品質 — 可執行規格） | 02 | done |
 | 04 | API Contract（內部品質） | 03 | done |
 | 05 | Backend TDD Track | 04 | done |
-| 06 | Frontend Build Track | 04 | todo |
-| 07 | Integration Validation | 05, 06 | todo |
+| 06 | Frontend Build Track | 04 | done |
+| 07 | Integration Validation | 05, 06 | done |
 
 ```
 01 → 02 → 03 → 04 ──┬──→ 05 ──┐
